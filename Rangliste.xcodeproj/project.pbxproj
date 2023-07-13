@@ -11,6 +11,15 @@
 		76E026B62A4145420018A955 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76E026B52A4145420018A955 /* ContentView.swift */; };
 		76E026B82A4145430018A955 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 76E026B72A4145430018A955 /* Assets.xcassets */; };
 		76E026BB2A4145430018A955 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 76E026BA2A4145430018A955 /* Preview Assets.xcassets */; };
+		76E026C32A41456A0018A955 /* Schwingfest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76E026C22A41456A0018A955 /* Schwingfest.swift */; };
+		76E026C52A43DBE10018A955 /* Schwinger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76E026C42A43DBE10018A955 /* Schwinger.swift */; };
+		76E026C72A43DBFA0018A955 /* AgeGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76E026C62A43DBFA0018A955 /* AgeGroup.swift */; };
+		76E026C92A43DC0F0018A955 /* Match.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76E026C82A43DC0F0018A955 /* Match.swift */; };
+		76E026CB2A43DC1F0018A955 /* ScoreCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76E026CA2A43DC1F0018A955 /* ScoreCard.swift */; };
+		76E026CD2A43DC6D0018A955 /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76E026CC2A43DC6D0018A955 /* Result.swift */; };
+		76E026D02A43DC910018A955 /* MockData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76E026CF2A43DC910018A955 /* MockData.swift */; };
+		76E026D42A43DCF60018A955 /* RanglisteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76E026D32A43DCF60018A955 /* RanglisteView.swift */; };
+		76E026D62A43E2960018A955 /* WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76E026D52A43E2960018A955 /* WebView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,6 +28,15 @@
 		76E026B52A4145420018A955 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		76E026B72A4145430018A955 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		76E026BA2A4145430018A955 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		76E026C22A41456A0018A955 /* Schwingfest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Schwingfest.swift; sourceTree = "<group>"; };
+		76E026C42A43DBE10018A955 /* Schwinger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Schwinger.swift; sourceTree = "<group>"; };
+		76E026C62A43DBFA0018A955 /* AgeGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgeGroup.swift; sourceTree = "<group>"; };
+		76E026C82A43DC0F0018A955 /* Match.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Match.swift; sourceTree = "<group>"; };
+		76E026CA2A43DC1F0018A955 /* ScoreCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreCard.swift; sourceTree = "<group>"; };
+		76E026CC2A43DC6D0018A955 /* Result.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
+		76E026CF2A43DC910018A955 /* MockData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockData.swift; sourceTree = "<group>"; };
+		76E026D32A43DCF60018A955 /* RanglisteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RanglisteView.swift; sourceTree = "<group>"; };
+		76E026D52A43E2960018A955 /* WebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,9 +70,11 @@
 			isa = PBXGroup;
 			children = (
 				76E026B32A4145420018A955 /* RanglisteApp.swift */,
-				76E026B52A4145420018A955 /* ContentView.swift */,
 				76E026B72A4145430018A955 /* Assets.xcassets */,
+				76E026CE2A43DC7B0018A955 /* MockData */,
+				76E026C12A4145550018A955 /* Model */,
 				76E026B92A4145430018A955 /* Preview Content */,
+				76E026D72A43E32C0018A955 /* Views */,
 			);
 			path = Rangliste;
 			sourceTree = "<group>";
@@ -65,6 +85,37 @@
 				76E026BA2A4145430018A955 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		76E026C12A4145550018A955 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				76E026C22A41456A0018A955 /* Schwingfest.swift */,
+				76E026C42A43DBE10018A955 /* Schwinger.swift */,
+				76E026C62A43DBFA0018A955 /* AgeGroup.swift */,
+				76E026C82A43DC0F0018A955 /* Match.swift */,
+				76E026CA2A43DC1F0018A955 /* ScoreCard.swift */,
+				76E026CC2A43DC6D0018A955 /* Result.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		76E026CE2A43DC7B0018A955 /* MockData */ = {
+			isa = PBXGroup;
+			children = (
+				76E026CF2A43DC910018A955 /* MockData.swift */,
+			);
+			path = MockData;
+			sourceTree = "<group>";
+		};
+		76E026D72A43E32C0018A955 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				76E026D32A43DCF60018A955 /* RanglisteView.swift */,
+				76E026D52A43E2960018A955 /* WebView.swift */,
+				76E026B52A4145420018A955 /* ContentView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -137,8 +188,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				76E026D42A43DCF60018A955 /* RanglisteView.swift in Sources */,
+				76E026C72A43DBFA0018A955 /* AgeGroup.swift in Sources */,
+				76E026C52A43DBE10018A955 /* Schwinger.swift in Sources */,
 				76E026B62A4145420018A955 /* ContentView.swift in Sources */,
+				76E026C32A41456A0018A955 /* Schwingfest.swift in Sources */,
+				76E026D02A43DC910018A955 /* MockData.swift in Sources */,
 				76E026B42A4145420018A955 /* RanglisteApp.swift in Sources */,
+				76E026CB2A43DC1F0018A955 /* ScoreCard.swift in Sources */,
+				76E026CD2A43DC6D0018A955 /* Result.swift in Sources */,
+				76E026C92A43DC0F0018A955 /* Match.swift in Sources */,
+				76E026D62A43E2960018A955 /* WebView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
