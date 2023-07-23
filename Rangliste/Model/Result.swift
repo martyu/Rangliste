@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum Result {
+enum Result: Codable  {
 	case win(points: Double)
 	case tie(points: Double)
 	case loss(points: Double)

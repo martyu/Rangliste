@@ -8,7 +8,6 @@
 import Foundation
 
 struct Match {
-	let id: UUID
 	let round: Int
 	let schwinger1: Schwinger
 	let schwinger2: Schwinger

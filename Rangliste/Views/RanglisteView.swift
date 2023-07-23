@@ -45,7 +45,7 @@ struct RanglisteView: View {
  """
 			
 			// Get the scorecards for this age group and sort them by points
-			let scorecardsForGroup = schwingfest.scoreCards.filter { $0.ageGroup.id == ageGroup.id }
+			let scorecardsForGroup = schwingfest.scoreCards.filter { $0.ageGroup.ages == ageGroup.ages }
 			let sortedScorecards = scorecardsForGroup.sorted { $0.totalPoints > $1.totalPoints }
 			
 			// Loop over the scorecards to create the table rows

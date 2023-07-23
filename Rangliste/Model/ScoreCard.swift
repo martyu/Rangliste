@@ -7,11 +7,11 @@
 
 import Foundation
 
-struct ScoreCard {
-	let id: UUID
-	let schwinger: Schwinger
-	let matches: [Match]
-	let ageGroup: AgeGroup
+struct ScoreCard: Identifiable {
+	var id: String = UUID().uuidString
+	var schwinger: Schwinger
+	var matches: [Match]
+	var ageGroup: AgeGroup
 }
 
 extension ScoreCard {

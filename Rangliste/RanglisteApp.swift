@@ -11,7 +11,8 @@ import SwiftUI
 struct RanglisteApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+//			RanglisteView(schwingfest: MockData.schwingfest)
+			SchwingfestList()
         }
     }
 }

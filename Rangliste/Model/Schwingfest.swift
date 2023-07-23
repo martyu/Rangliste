@@ -6,13 +6,14 @@
 //
 
 import Foundation
-import SwiftUI
-import WebKit
 
 struct Schwingfest {
-	let id: UUID
+	static func == (lhs: Schwingfest, rhs: Schwingfest) -> Bool {
+		lhs.id == rhs.id
+	}
+	
 	let date: Date
 	let location: String
-	let ageGroups: [AgeGroup]
-	let scoreCards: [ScoreCard]
+	var ageGroups: [AgeGroup]
+	var scoreCards: [ScoreCard]
 }

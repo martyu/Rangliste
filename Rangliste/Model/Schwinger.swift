@@ -7,10 +7,10 @@
 
 import Foundation
 
-struct Schwinger {
+struct Schwinger: Identifiable {
 	let id: UUID
-	let firstName: String
-	let lastName: String
-	let age: Int
+	var firstName: String
+	var lastName: String
+	var age: Int
 	var ageGroup: AgeGroup?
 }
