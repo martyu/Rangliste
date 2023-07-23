@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		769BE2CB2A5FE1BA007260D8 /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 769BE2CA2A5FE1BA007260D8 /* Protocols.swift */; };
 		76BEA8212A6BB16E00987CBD /* SchwingfestList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76BEA8202A6BB16E00987CBD /* SchwingfestList.swift */; };
 		76BEA8232A6BB99700987CBD /* AddSchwingfestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76BEA8222A6BB99700987CBD /* AddSchwingfestView.swift */; };
 		76BEA8272A6BE28A00987CBD /* SchwingfestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76BEA8262A6BE28A00987CBD /* SchwingfestView.swift */; };
@@ -27,7 +26,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		769BE2CA2A5FE1BA007260D8 /* Protocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocols.swift; sourceTree = "<group>"; };
 		76BEA8202A6BB16E00987CBD /* SchwingfestList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchwingfestList.swift; sourceTree = "<group>"; };
 		76BEA8222A6BB99700987CBD /* AddSchwingfestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddSchwingfestView.swift; sourceTree = "<group>"; };
 		76BEA8262A6BE28A00987CBD /* SchwingfestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchwingfestView.swift; sourceTree = "<group>"; };
@@ -58,14 +56,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		769BE2C92A5FE130007260D8 /* Application */ = {
-			isa = PBXGroup;
-			children = (
-				769BE2CA2A5FE1BA007260D8 /* Protocols.swift */,
-			);
-			path = Application;
-			sourceTree = "<group>";
-		};
 		76E026A72A4145420018A955 = {
 			isa = PBXGroup;
 			children = (
@@ -89,7 +79,6 @@
 				76E026B32A4145420018A955 /* RanglisteApp.swift */,
 				76E026B72A4145430018A955 /* Assets.xcassets */,
 				76E026C12A4145550018A955 /* Model */,
-				769BE2C92A5FE130007260D8 /* Application */,
 				76E026D72A43E32C0018A955 /* Views */,
 			);
 			path = Rangliste;
@@ -211,7 +200,6 @@
 				76BEA8292A6BE43300987CBD /* NoteblatteView.swift in Sources */,
 				76E026D42A43DCF60018A955 /* RanglisteView.swift in Sources */,
 				76BEA8212A6BB16E00987CBD /* SchwingfestList.swift in Sources */,
-				769BE2CB2A5FE1BA007260D8 /* Protocols.swift in Sources */,
 				76BEA8232A6BB99700987CBD /* AddSchwingfestView.swift in Sources */,
 				76E026C72A43DBFA0018A955 /* AgeGroup.swift in Sources */,
 				76E026C52A43DBE10018A955 /* Schwinger.swift in Sources */,
