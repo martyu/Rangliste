@@ -11,7 +11,8 @@ struct NoteblatteView: View {
 	@State var noteblatte: ScoreCard
 	
     var body: some View {
-		Text(noteblatte.schwinger.lastName)
+		EmptyView()
+			.navigationTitle(noteblatte.schwinger.fullName)
     }
 }
 

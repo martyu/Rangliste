@@ -13,21 +13,21 @@ struct SchwingfestView: View {
 	@State var schwingfest: Schwingfest
 	
 	var body: some View {
-		NavigationView {
-			ScrollView {
-				ForEach(schwingfest.scoreCards) { scoreCard in
-					NavigationLink {
-						NoteblatteView(noteblatte: scoreCard)
-					} label: {
-						Text("\(scoreCard.schwinger.firstName) \(scoreCard.schwinger.lastName)")
-							.frame(alignment: .leading)
-						Spacer()
-					}
-					.padding()
-					Divider()
+		List {
+			ForEach(schwingfest.scoreCards) { scoreCard in
+				NavigationLink {
+					NoteblatteView(noteblatte: scoreCard)
+				} label: {
+					Text(scoreCard.schwinger.fullName)
+						.frame(alignment: .leading)
+					Spacer()
 				}
 			}
+			.onDelete { indexSet in
+				schwingfest.scoreCards.remove(atOffsets: indexSet)
+			}
 		}
+		.navigationTitle("\(schwingfest.location) \(schwingfest.date.year)")
 	}
 }
 

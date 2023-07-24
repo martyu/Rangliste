@@ -8,6 +8,6 @@
 import Foundation
 
 struct AgeGroup {
-	let name: String
-	let ages: ClosedRange<Int>
+	var name: String
+	var ages: ClosedRange<Int>
 }

@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		766BCB062A6DFC4E002700AF /* Schwinger+FullName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 766BCB052A6DFC4E002700AF /* Schwinger+FullName.swift */; };
+		766BCB092A6E0277002700AF /* Date+Year.swift in Sources */ = {isa = PBXBuildFile; fileRef = 766BCB082A6E0277002700AF /* Date+Year.swift */; };
+		766BCB0C2A6E0856002700AF /* ConfirmDeleteViewModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 766BCB0B2A6E0856002700AF /* ConfirmDeleteViewModifier.swift */; };
 		76BEA8212A6BB16E00987CBD /* SchwingfestList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76BEA8202A6BB16E00987CBD /* SchwingfestList.swift */; };
 		76BEA8232A6BB99700987CBD /* AddSchwingfestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76BEA8222A6BB99700987CBD /* AddSchwingfestView.swift */; };
 		76BEA8272A6BE28A00987CBD /* SchwingfestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76BEA8262A6BE28A00987CBD /* SchwingfestView.swift */; };
@@ -26,6 +29,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		766BCB052A6DFC4E002700AF /* Schwinger+FullName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Schwinger+FullName.swift"; sourceTree = "<group>"; };
+		766BCB082A6E0277002700AF /* Date+Year.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Year.swift"; sourceTree = "<group>"; };
+		766BCB0B2A6E0856002700AF /* ConfirmDeleteViewModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmDeleteViewModifier.swift; sourceTree = "<group>"; };
 		76BEA8202A6BB16E00987CBD /* SchwingfestList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchwingfestList.swift; sourceTree = "<group>"; };
 		76BEA8222A6BB99700987CBD /* AddSchwingfestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddSchwingfestView.swift; sourceTree = "<group>"; };
 		76BEA8262A6BE28A00987CBD /* SchwingfestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchwingfestView.swift; sourceTree = "<group>"; };
@@ -56,6 +62,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		766BCB072A6DFC57002700AF /* Presentation Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				766BCB052A6DFC4E002700AF /* Schwinger+FullName.swift */,
+			);
+			path = "Presentation Extensions";
+			sourceTree = "<group>";
+		};
+		766BCB0A2A6E0280002700AF /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				766BCB082A6E0277002700AF /* Date+Year.swift */,
+				766BCB0B2A6E0856002700AF /* ConfirmDeleteViewModifier.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		76E026A72A4145420018A955 = {
 			isa = PBXGroup;
 			children = (
@@ -78,7 +101,9 @@
 			children = (
 				76E026B32A4145420018A955 /* RanglisteApp.swift */,
 				76E026B72A4145430018A955 /* Assets.xcassets */,
+				766BCB0A2A6E0280002700AF /* Extensions */,
 				76E026C12A4145550018A955 /* Model */,
+				766BCB072A6DFC57002700AF /* Presentation Extensions */,
 				76E026D72A43E32C0018A955 /* Views */,
 			);
 			path = Rangliste;
@@ -199,6 +224,7 @@
 			files = (
 				76BEA8292A6BE43300987CBD /* NoteblatteView.swift in Sources */,
 				76E026D42A43DCF60018A955 /* RanglisteView.swift in Sources */,
+				766BCB0C2A6E0856002700AF /* ConfirmDeleteViewModifier.swift in Sources */,
 				76BEA8212A6BB16E00987CBD /* SchwingfestList.swift in Sources */,
 				76BEA8232A6BB99700987CBD /* AddSchwingfestView.swift in Sources */,
 				76E026C72A43DBFA0018A955 /* AgeGroup.swift in Sources */,
@@ -208,9 +234,11 @@
 				76E026B42A4145420018A955 /* RanglisteApp.swift in Sources */,
 				76E026CB2A43DC1F0018A955 /* ScoreCard.swift in Sources */,
 				76BEA8272A6BE28A00987CBD /* SchwingfestView.swift in Sources */,
+				766BCB092A6E0277002700AF /* Date+Year.swift in Sources */,
 				76E026CD2A43DC6D0018A955 /* Result.swift in Sources */,
 				76E026C92A43DC0F0018A955 /* Match.swift in Sources */,
 				76E026D62A43E2960018A955 /* WebView.swift in Sources */,
+				766BCB062A6DFC4E002700AF /* Schwinger+FullName.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

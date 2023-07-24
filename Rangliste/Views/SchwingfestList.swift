@@ -17,10 +17,8 @@ struct SchwingfestList: View {
 	
 	var body: some View {
 		NavigationView {
-			VStack {
-				List(groupedByYear(schwingfests), id: \.year) { yearGroup in
-					yearSection(for: yearGroup)
-				}
+			List(groupedByYear(schwingfests), id: \.year) { yearGroup in
+				yearSection(for: yearGroup)
 			}
 			.toolbar {
 				ToolbarItem(placement: .navigationBarTrailing) {
@@ -36,6 +34,7 @@ struct SchwingfestList: View {
 				}
 				isShowingSheet = false
 			}
+			
 		}
 	}
 	

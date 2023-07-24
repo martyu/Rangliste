@@ -8,12 +8,8 @@
 import Foundation
 
 struct Schwingfest {
-	static func == (lhs: Schwingfest, rhs: Schwingfest) -> Bool {
-		lhs.id == rhs.id
-	}
-	
-	let date: Date
-	let location: String
+	var date: Date
+	var location: String
 	var ageGroups: [AgeGroup]
 	var scoreCards: [ScoreCard]
 }

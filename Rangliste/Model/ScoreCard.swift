@@ -8,7 +8,7 @@
 import Foundation
 
 struct ScoreCard: Identifiable {
-	var id: String = UUID().uuidString
+	let id: String = UUID().uuidString
 	var schwinger: Schwinger
 	var matches: [Match]
 	var ageGroup: AgeGroup
