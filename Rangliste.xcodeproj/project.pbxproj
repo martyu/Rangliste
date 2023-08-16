@@ -7,6 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		761FDF682A75F3BB00EB6D05 /* MatchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 761FDF672A75F3BB00EB6D05 /* MatchView.swift */; };
+		761FDF782A77191300EB6D05 /* Schwingfest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 761FDF712A77191300EB6D05 /* Schwingfest.swift */; };
+		761FDF792A77191300EB6D05 /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 761FDF722A77191300EB6D05 /* Result.swift */; };
+		761FDF7A2A77191300EB6D05 /* Match.swift in Sources */ = {isa = PBXBuildFile; fileRef = 761FDF732A77191300EB6D05 /* Match.swift */; };
+		761FDF7B2A77191300EB6D05 /* ScoreCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 761FDF742A77191300EB6D05 /* ScoreCard.swift */; };
+		761FDF7C2A77191300EB6D05 /* AgeGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 761FDF752A77191300EB6D05 /* AgeGroup.swift */; };
+		761FDF7D2A77191300EB6D05 /* Schwinger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 761FDF762A77191300EB6D05 /* Schwinger.swift */; };
+		76563C222A7F6263001E26CB /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76563C212A7F6263001E26CB /* DataManager.swift */; };
 		766BCB062A6DFC4E002700AF /* Schwinger+FullName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 766BCB052A6DFC4E002700AF /* Schwinger+FullName.swift */; };
 		766BCB092A6E0277002700AF /* Date+Year.swift in Sources */ = {isa = PBXBuildFile; fileRef = 766BCB082A6E0277002700AF /* Date+Year.swift */; };
 		766BCB0C2A6E0856002700AF /* ConfirmDeleteViewModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 766BCB0B2A6E0856002700AF /* ConfirmDeleteViewModifier.swift */; };
@@ -14,21 +22,55 @@
 		76BEA8232A6BB99700987CBD /* AddSchwingfestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76BEA8222A6BB99700987CBD /* AddSchwingfestView.swift */; };
 		76BEA8272A6BE28A00987CBD /* SchwingfestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76BEA8262A6BE28A00987CBD /* SchwingfestView.swift */; };
 		76BEA8292A6BE43300987CBD /* NoteblatteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76BEA8282A6BE43300987CBD /* NoteblatteView.swift */; };
+		76BF60422A8C8E57003D2EE2 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 76BF60412A8C8E57003D2EE2 /* RealmSwift */; };
+		76BF60582A8C8FCC003D2EE2 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 76BF60572A8C8FCC003D2EE2 /* RealmSwift */; };
+		76BF605D2A8C943B003D2EE2 /* libRealmModels.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 76BF604A2A8C8F04003D2EE2 /* libRealmModels.a */; };
+		76BF606F2A8C9495003D2EE2 /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76BF60622A8C948C003D2EE2 /* Result.swift */; };
+		76BF60702A8C9495003D2EE2 /* Match.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76BF60632A8C948C003D2EE2 /* Match.swift */; };
+		76BF60712A8C9495003D2EE2 /* Schwinger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76BF60672A8C948C003D2EE2 /* Schwinger.swift */; };
+		76BF60722A8C9495003D2EE2 /* Schwingfest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76BF60612A8C948C003D2EE2 /* Schwingfest.swift */; };
+		76BF60732A8C9495003D2EE2 /* ScoreCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76BF60652A8C948C003D2EE2 /* ScoreCard.swift */; };
+		76BF60742A8C9495003D2EE2 /* MockData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76BF60642A8C948C003D2EE2 /* MockData.swift */; };
+		76BF60752A8C9495003D2EE2 /* AgeGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76BF60662A8C948C003D2EE2 /* AgeGroup.swift */; };
 		76E026B42A4145420018A955 /* RanglisteApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76E026B32A4145420018A955 /* RanglisteApp.swift */; };
 		76E026B82A4145430018A955 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 76E026B72A4145430018A955 /* Assets.xcassets */; };
 		76E026BB2A4145430018A955 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 76E026BA2A4145430018A955 /* Preview Assets.xcassets */; };
-		76E026C32A41456A0018A955 /* Schwingfest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76E026C22A41456A0018A955 /* Schwingfest.swift */; };
-		76E026C52A43DBE10018A955 /* Schwinger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76E026C42A43DBE10018A955 /* Schwinger.swift */; };
-		76E026C72A43DBFA0018A955 /* AgeGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76E026C62A43DBFA0018A955 /* AgeGroup.swift */; };
-		76E026C92A43DC0F0018A955 /* Match.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76E026C82A43DC0F0018A955 /* Match.swift */; };
-		76E026CB2A43DC1F0018A955 /* ScoreCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76E026CA2A43DC1F0018A955 /* ScoreCard.swift */; };
-		76E026CD2A43DC6D0018A955 /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76E026CC2A43DC6D0018A955 /* Result.swift */; };
 		76E026D02A43DC910018A955 /* MockData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76E026CF2A43DC910018A955 /* MockData.swift */; };
 		76E026D42A43DCF60018A955 /* RanglisteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76E026D32A43DCF60018A955 /* RanglisteView.swift */; };
 		76E026D62A43E2960018A955 /* WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76E026D52A43E2960018A955 /* WebView.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		76BF605E2A8C943B003D2EE2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 76E026A82A4145420018A955 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 76BF60492A8C8F04003D2EE2;
+			remoteInfo = RealmModels;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		76BF60482A8C8F04003D2EE2 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/$(PRODUCT_NAME)";
+			dstSubfolderSpec = 16;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		761FDF672A75F3BB00EB6D05 /* MatchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchView.swift; sourceTree = "<group>"; };
+		761FDF712A77191300EB6D05 /* Schwingfest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Schwingfest.swift; sourceTree = "<group>"; };
+		761FDF722A77191300EB6D05 /* Result.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
+		761FDF732A77191300EB6D05 /* Match.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Match.swift; sourceTree = "<group>"; };
+		761FDF742A77191300EB6D05 /* ScoreCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScoreCard.swift; sourceTree = "<group>"; };
+		761FDF752A77191300EB6D05 /* AgeGroup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AgeGroup.swift; sourceTree = "<group>"; };
+		761FDF762A77191300EB6D05 /* Schwinger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Schwinger.swift; sourceTree = "<group>"; };
+		76563C212A7F6263001E26CB /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		766BCB052A6DFC4E002700AF /* Schwinger+FullName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Schwinger+FullName.swift"; sourceTree = "<group>"; };
 		766BCB082A6E0277002700AF /* Date+Year.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Year.swift"; sourceTree = "<group>"; };
 		766BCB0B2A6E0856002700AF /* ConfirmDeleteViewModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmDeleteViewModifier.swift; sourceTree = "<group>"; };
@@ -36,32 +78,67 @@
 		76BEA8222A6BB99700987CBD /* AddSchwingfestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddSchwingfestView.swift; sourceTree = "<group>"; };
 		76BEA8262A6BE28A00987CBD /* SchwingfestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchwingfestView.swift; sourceTree = "<group>"; };
 		76BEA8282A6BE43300987CBD /* NoteblatteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteblatteView.swift; sourceTree = "<group>"; };
+		76BF604A2A8C8F04003D2EE2 /* libRealmModels.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libRealmModels.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		76BF60612A8C948C003D2EE2 /* Schwingfest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Schwingfest.swift; sourceTree = "<group>"; };
+		76BF60622A8C948C003D2EE2 /* Result.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
+		76BF60632A8C948C003D2EE2 /* Match.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Match.swift; sourceTree = "<group>"; };
+		76BF60642A8C948C003D2EE2 /* MockData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockData.swift; sourceTree = "<group>"; };
+		76BF60652A8C948C003D2EE2 /* ScoreCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScoreCard.swift; sourceTree = "<group>"; };
+		76BF60662A8C948C003D2EE2 /* AgeGroup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AgeGroup.swift; sourceTree = "<group>"; };
+		76BF60672A8C948C003D2EE2 /* Schwinger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Schwinger.swift; sourceTree = "<group>"; };
 		76E026B02A4145420018A955 /* Rangliste.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Rangliste.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		76E026B32A4145420018A955 /* RanglisteApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RanglisteApp.swift; sourceTree = "<group>"; };
 		76E026B72A4145430018A955 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		76E026BA2A4145430018A955 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		76E026C22A41456A0018A955 /* Schwingfest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Schwingfest.swift; sourceTree = "<group>"; };
-		76E026C42A43DBE10018A955 /* Schwinger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Schwinger.swift; sourceTree = "<group>"; };
-		76E026C62A43DBFA0018A955 /* AgeGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgeGroup.swift; sourceTree = "<group>"; };
-		76E026C82A43DC0F0018A955 /* Match.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Match.swift; sourceTree = "<group>"; };
-		76E026CA2A43DC1F0018A955 /* ScoreCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreCard.swift; sourceTree = "<group>"; };
-		76E026CC2A43DC6D0018A955 /* Result.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
 		76E026CF2A43DC910018A955 /* MockData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockData.swift; sourceTree = "<group>"; };
 		76E026D32A43DCF60018A955 /* RanglisteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RanglisteView.swift; sourceTree = "<group>"; };
 		76E026D52A43E2960018A955 /* WebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		76BF60472A8C8F04003D2EE2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				76BF60582A8C8FCC003D2EE2 /* RealmSwift in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		76E026AD2A4145420018A955 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				76BF60422A8C8E57003D2EE2 /* RealmSwift in Frameworks */,
+				76BF605D2A8C943B003D2EE2 /* libRealmModels.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		761FDF6C2A77191300EB6D05 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				76BF60602A8C948C003D2EE2 /* Realm */,
+				761FDF702A77191300EB6D05 /* Domain */,
+				76563C212A7F6263001E26CB /* DataManager.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		761FDF702A77191300EB6D05 /* Domain */ = {
+			isa = PBXGroup;
+			children = (
+				761FDF752A77191300EB6D05 /* AgeGroup.swift */,
+				761FDF732A77191300EB6D05 /* Match.swift */,
+				761FDF722A77191300EB6D05 /* Result.swift */,
+				761FDF762A77191300EB6D05 /* Schwinger.swift */,
+				761FDF712A77191300EB6D05 /* Schwingfest.swift */,
+				761FDF742A77191300EB6D05 /* ScoreCard.swift */,
+			);
+			path = Domain;
+			sourceTree = "<group>";
+		};
 		766BCB072A6DFC57002700AF /* Presentation Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -79,12 +156,34 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
+		76BF605C2A8C943B003D2EE2 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		76BF60602A8C948C003D2EE2 /* Realm */ = {
+			isa = PBXGroup;
+			children = (
+				76BF60662A8C948C003D2EE2 /* AgeGroup.swift */,
+				76BF60632A8C948C003D2EE2 /* Match.swift */,
+				76BF60642A8C948C003D2EE2 /* MockData.swift */,
+				76BF60622A8C948C003D2EE2 /* Result.swift */,
+				76BF60672A8C948C003D2EE2 /* Schwinger.swift */,
+				76BF60612A8C948C003D2EE2 /* Schwingfest.swift */,
+				76BF60652A8C948C003D2EE2 /* ScoreCard.swift */,
+			);
+			path = Realm;
+			sourceTree = "<group>";
+		};
 		76E026A72A4145420018A955 = {
 			isa = PBXGroup;
 			children = (
 				76E026B22A4145420018A955 /* Rangliste */,
 				76E026B92A4145430018A955 /* Preview Content */,
 				76E026B12A4145420018A955 /* Products */,
+				76BF605C2A8C943B003D2EE2 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -92,6 +191,7 @@
 			isa = PBXGroup;
 			children = (
 				76E026B02A4145420018A955 /* Rangliste.app */,
+				76BF604A2A8C8F04003D2EE2 /* libRealmModels.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -102,7 +202,7 @@
 				76E026B32A4145420018A955 /* RanglisteApp.swift */,
 				76E026B72A4145430018A955 /* Assets.xcassets */,
 				766BCB0A2A6E0280002700AF /* Extensions */,
-				76E026C12A4145550018A955 /* Model */,
+				761FDF6C2A77191300EB6D05 /* Model */,
 				766BCB072A6DFC57002700AF /* Presentation Extensions */,
 				76E026D72A43E32C0018A955 /* Views */,
 			);
@@ -118,19 +218,6 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
-		76E026C12A4145550018A955 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				76E026C22A41456A0018A955 /* Schwingfest.swift */,
-				76E026C42A43DBE10018A955 /* Schwinger.swift */,
-				76E026C62A43DBFA0018A955 /* AgeGroup.swift */,
-				76E026C82A43DC0F0018A955 /* Match.swift */,
-				76E026CA2A43DC1F0018A955 /* ScoreCard.swift */,
-				76E026CC2A43DC6D0018A955 /* Result.swift */,
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
 		76E026CE2A43DC7B0018A955 /* MockData */ = {
 			isa = PBXGroup;
 			children = (
@@ -142,12 +229,13 @@
 		76E026D72A43E32C0018A955 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				76E026D32A43DCF60018A955 /* RanglisteView.swift */,
-				76E026D52A43E2960018A955 /* WebView.swift */,
-				76BEA8202A6BB16E00987CBD /* SchwingfestList.swift */,
 				76BEA8222A6BB99700987CBD /* AddSchwingfestView.swift */,
-				76BEA8262A6BE28A00987CBD /* SchwingfestView.swift */,
+				761FDF672A75F3BB00EB6D05 /* MatchView.swift */,
 				76BEA8282A6BE43300987CBD /* NoteblatteView.swift */,
+				76E026D32A43DCF60018A955 /* RanglisteView.swift */,
+				76BEA8202A6BB16E00987CBD /* SchwingfestList.swift */,
+				76BEA8262A6BE28A00987CBD /* SchwingfestView.swift */,
+				76E026D52A43E2960018A955 /* WebView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -155,6 +243,26 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		76BF60492A8C8F04003D2EE2 /* RealmModels */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 76BF604E2A8C8F04003D2EE2 /* Build configuration list for PBXNativeTarget "RealmModels" */;
+			buildPhases = (
+				76BF60462A8C8F04003D2EE2 /* Sources */,
+				76BF60472A8C8F04003D2EE2 /* Frameworks */,
+				76BF60482A8C8F04003D2EE2 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = RealmModels;
+			packageProductDependencies = (
+				76BF60572A8C8FCC003D2EE2 /* RealmSwift */,
+			);
+			productName = RealmModels;
+			productReference = 76BF604A2A8C8F04003D2EE2 /* libRealmModels.a */;
+			productType = "com.apple.product-type.library.static";
+		};
 		76E026AF2A4145420018A955 /* Rangliste */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 76E026BE2A4145430018A955 /* Build configuration list for PBXNativeTarget "Rangliste" */;
@@ -166,8 +274,12 @@
 			buildRules = (
 			);
 			dependencies = (
+				76BF605F2A8C943B003D2EE2 /* PBXTargetDependency */,
 			);
 			name = Rangliste;
+			packageProductDependencies = (
+				76BF60412A8C8E57003D2EE2 /* RealmSwift */,
+			);
 			productName = Rangliste;
 			productReference = 76E026B02A4145420018A955 /* Rangliste.app */;
 			productType = "com.apple.product-type.application";
@@ -182,6 +294,9 @@
 				LastSwiftUpdateCheck = 1430;
 				LastUpgradeCheck = 1430;
 				TargetAttributes = {
+					76BF60492A8C8F04003D2EE2 = {
+						CreatedOnToolsVersion = 14.3;
+					};
 					76E026AF2A4145420018A955 = {
 						CreatedOnToolsVersion = 14.3;
 					};
@@ -196,11 +311,15 @@
 				Base,
 			);
 			mainGroup = 76E026A72A4145420018A955;
+			packageReferences = (
+				76BF60402A8C8E57003D2EE2 /* XCRemoteSwiftPackageReference "realm-swift" */,
+			);
 			productRefGroup = 76E026B12A4145420018A955 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
 				76E026AF2A4145420018A955 /* Rangliste */,
+				76BF60492A8C8F04003D2EE2 /* RealmModels */,
 			);
 		};
 /* End PBXProject section */
@@ -218,6 +337,20 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		76BF60462A8C8F04003D2EE2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				76BF606F2A8C9495003D2EE2 /* Result.swift in Sources */,
+				76BF60742A8C9495003D2EE2 /* MockData.swift in Sources */,
+				76BF60722A8C9495003D2EE2 /* Schwingfest.swift in Sources */,
+				76BF60752A8C9495003D2EE2 /* AgeGroup.swift in Sources */,
+				76BF60702A8C9495003D2EE2 /* Match.swift in Sources */,
+				76BF60712A8C9495003D2EE2 /* Schwinger.swift in Sources */,
+				76BF60732A8C9495003D2EE2 /* ScoreCard.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		76E026AC2A4145420018A955 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -225,18 +358,20 @@
 				76BEA8292A6BE43300987CBD /* NoteblatteView.swift in Sources */,
 				76E026D42A43DCF60018A955 /* RanglisteView.swift in Sources */,
 				766BCB0C2A6E0856002700AF /* ConfirmDeleteViewModifier.swift in Sources */,
+				761FDF7A2A77191300EB6D05 /* Match.swift in Sources */,
+				761FDF782A77191300EB6D05 /* Schwingfest.swift in Sources */,
+				761FDF7D2A77191300EB6D05 /* Schwinger.swift in Sources */,
 				76BEA8212A6BB16E00987CBD /* SchwingfestList.swift in Sources */,
+				761FDF682A75F3BB00EB6D05 /* MatchView.swift in Sources */,
+				761FDF792A77191300EB6D05 /* Result.swift in Sources */,
 				76BEA8232A6BB99700987CBD /* AddSchwingfestView.swift in Sources */,
-				76E026C72A43DBFA0018A955 /* AgeGroup.swift in Sources */,
-				76E026C52A43DBE10018A955 /* Schwinger.swift in Sources */,
-				76E026C32A41456A0018A955 /* Schwingfest.swift in Sources */,
 				76E026D02A43DC910018A955 /* MockData.swift in Sources */,
+				761FDF7B2A77191300EB6D05 /* ScoreCard.swift in Sources */,
+				761FDF7C2A77191300EB6D05 /* AgeGroup.swift in Sources */,
 				76E026B42A4145420018A955 /* RanglisteApp.swift in Sources */,
-				76E026CB2A43DC1F0018A955 /* ScoreCard.swift in Sources */,
+				76563C222A7F6263001E26CB /* DataManager.swift in Sources */,
 				76BEA8272A6BE28A00987CBD /* SchwingfestView.swift in Sources */,
 				766BCB092A6E0277002700AF /* Date+Year.swift in Sources */,
-				76E026CD2A43DC6D0018A955 /* Result.swift in Sources */,
-				76E026C92A43DC0F0018A955 /* Match.swift in Sources */,
 				76E026D62A43E2960018A955 /* WebView.swift in Sources */,
 				766BCB062A6DFC4E002700AF /* Schwinger+FullName.swift in Sources */,
 			);
@@ -244,7 +379,41 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		76BF605F2A8C943B003D2EE2 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 76BF60492A8C8F04003D2EE2 /* RealmModels */;
+			targetProxy = 76BF605E2A8C943B003D2EE2 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
+		76BF604F2A8C8F04003D2EE2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = S2X9VNR2UC;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		76BF60502A8C8F04003D2EE2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = S2X9VNR2UC;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 		76E026BC2A4145430018A955 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -302,6 +471,7 @@
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_STRICT_CONCURRENCY = complete;
 			};
 			name = Debug;
 		};
@@ -355,6 +525,7 @@
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_STRICT_CONCURRENCY = complete;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -420,6 +591,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		76BF604E2A8C8F04003D2EE2 /* Build configuration list for PBXNativeTarget "RealmModels" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				76BF604F2A8C8F04003D2EE2 /* Debug */,
+				76BF60502A8C8F04003D2EE2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		76E026AB2A4145420018A955 /* Build configuration list for PBXProject "Rangliste" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -439,6 +619,30 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		76BF60402A8C8E57003D2EE2 /* XCRemoteSwiftPackageReference "realm-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/realm/realm-swift";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		76BF60412A8C8E57003D2EE2 /* RealmSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 76BF60402A8C8E57003D2EE2 /* XCRemoteSwiftPackageReference "realm-swift" */;
+			productName = RealmSwift;
+		};
+		76BF60572A8C8FCC003D2EE2 /* RealmSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 76BF60402A8C8E57003D2EE2 /* XCRemoteSwiftPackageReference "realm-swift" */;
+			productName = RealmSwift;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 76E026A82A4145420018A955 /* Project object */;
 }

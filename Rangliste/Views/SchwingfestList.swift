@@ -6,19 +6,19 @@
 //
 
 import SwiftUI
+import RealmSwift
+import RealmModels
 
 struct SchwingfestList: View {
-	@State private var schwingfests: [Schwingfest] = MockData.schwingfests
+	@ObservedSectionedResults(RealmModels.Schwingfest.self, sectionKeyPath: \.year) private var schwingfests
 	@State private var isShowingSheet = false
-	@State private var newSchwingfestName: SchwingfestName = .frances
-	private var newSchwingfest: Schwingfest {
-		Schwingfest(date: Date(), location: newSchwingfestName.rawValue, ageGroups: [], scoreCards: [])
-	}
 	
 	var body: some View {
 		NavigationView {
-			List(groupedByYear(schwingfests), id: \.year) { yearGroup in
-				yearSection(for: yearGroup)
+			List {
+				ForEach(schwingfests) { section in
+					yearSection(for: section)
+				}
 			}
 			.toolbar {
 				ToolbarItem(placement: .navigationBarTrailing) {
@@ -29,8 +29,13 @@ struct SchwingfestList: View {
 		.navigationTitle("Schwingfests")
 		.sheet(isPresented: $isShowingSheet) {
 			AddSchwingfestView {
-				$0.flatMap {
-					schwingfests.append($0)
+				$0.flatMap { newSchwingfest in
+					let _ = Task {
+						let realm = try! await Realm()
+						realm.beginWrite()
+						realm.add(newSchwingfest)
+						try realm.commitWrite()
+					}
 				}
 				isShowingSheet = false
 			}
@@ -39,9 +44,9 @@ struct SchwingfestList: View {
 	}
 	
 	@ViewBuilder
-	private func yearSection(for group: YearGroup) -> some View {
-		Section(header: Text("\(group.year)".replacingOccurrences(of: ",", with: ""))) {
-			ForEach(group.schwingfests) { schwingfest in
+	private func yearSection(for group: ResultsSection<Int, Schwingfest>) -> some View {
+		Section(header: Text("\(group.key)".replacingOccurrences(of: ",", with: ""))) {
+			ForEach(group) { schwingfest in
 				schwingfestCell(schwingfest)
 			}
 		}
@@ -51,6 +56,7 @@ struct SchwingfestList: View {
 	private func schwingfestCell(_ schwingfest: Schwingfest) -> some View {
 		NavigationLink {
 			SchwingfestView(schwingfest: schwingfest)
+//				.environmentObject(schwingfest)
 		} label: {
 			HStack {
 				Text(schwingfest.location)
@@ -68,20 +74,10 @@ struct SchwingfestList: View {
 			Image(systemName: "plus")
 		}
 	}
-	
-	func groupedByYear(_ schwingfests: [Schwingfest]) -> [YearGroup] {
-		let grouped = Dictionary(grouping: schwingfests) { Calendar.current.component(.year, from: $0.date) }
-		return grouped.map { YearGroup(year: $0.key, schwingfests: $0.value) }.sorted { $0.year > $1.year }
-	}
 }
 
-extension Schwingfest: Identifiable {
-	var id: String { "\(date)\(location)" }
-}
-
-struct YearGroup {
-	let year: Int
-	let schwingfests: [Schwingfest]
+extension Schwingfest {
+	var year: Int { Calendar.current.component(.year, from: date) }
 }
 
 let dateFormatter: DateFormatter = {
@@ -91,8 +87,10 @@ let dateFormatter: DateFormatter = {
 	return formatter
 }()
 
-#Preview {
-	NavigationView {
-		SchwingfestList()
+struct SchwingfestList_Previews: PreviewProvider {
+	static var previews: some View {
+		NavigationView {
+			SchwingfestList()
+		}
 	}
 }

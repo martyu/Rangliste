@@ -6,31 +6,36 @@
 //
 
 import SwiftUI
+import RealmModels
 
 //TODO: add plus button in top right to add more schwingers
 
 struct SchwingfestView: View {
-	@State var schwingfest: Schwingfest
+	var schwingfest: Schwingfest
 	
 	var body: some View {
 		List {
-			ForEach(schwingfest.scoreCards) { scoreCard in
-				NavigationLink {
-					NoteblatteView(noteblatte: scoreCard)
-				} label: {
-					Text(scoreCard.schwinger.fullName)
-						.frame(alignment: .leading)
-					Spacer()
-				}
+			ForEach(.constant(schwingfest.scorecards)) { scoreCard in
+//				NavigationLink {
+//					NoteblatteView(scoreCard: scoreCard)
+//						.environmentObject(schwingfest)
+//				} label: {
+//					Text(scoreCard.schwinger.wrappedValue.fullName)
+//						.frame(alignment: .leading)
+//					Spacer()
+//				}
 			}
 			.onDelete { indexSet in
-				schwingfest.scoreCards.remove(atOffsets: indexSet)
+//				schwingfest.scoreCards.remove(atOffsets: indexSet)
 			}
 		}
 		.navigationTitle("\(schwingfest.location) \(schwingfest.date.year)")
 	}
 }
 
-#Preview {
-	SchwingfestView(schwingfest: MockData.schwingfest)
-}
+//struct SchwingfestView_Previews: PreviewProvider {
+//	static var previews: some View {
+//		SchwingfestView()
+//			.environmentObject(MockData.schwingfest)
+//	}
+//}

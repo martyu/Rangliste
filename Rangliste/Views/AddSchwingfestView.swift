@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import RealmModels
 
 enum SchwingfestName: String, CaseIterable {
 	case tacomaSpring = "Tacoma Spring"
@@ -46,14 +47,17 @@ struct AddSchwingfestView: View {
 			}
 			.padding()
 			.toolbar {
-				ToolbarItem(placement: .topBarTrailing) {
+				ToolbarItem(placement: .navigationBarTrailing) {
 					Button {
-						addSchwingfest(Schwingfest(date: date, location: schwingfestName.rawValue, ageGroups: [], scoreCards: []))
+						let schwingfest = Schwingfest()
+						schwingfest.date = date
+						schwingfest.location = schwingfestName.rawValue
+						addSchwingfest(schwingfest)
 					} label: {
 						Text("Done")
 					}
 				}
-				ToolbarItem(placement: .topBarLeading) {
+				ToolbarItem(placement: .navigationBarLeading) {
 					Button {
 						addSchwingfest(nil)
 					} label: {
@@ -65,6 +69,8 @@ struct AddSchwingfestView: View {
 	}
 }
 
-#Preview {
-	AddSchwingfestView(schwingfestName: .frances, addSchwingfest: { _ in })
+struct AddSchwingfestView_Previews: PreviewProvider {
+	static var previews: some View {
+		AddSchwingfestView(schwingfestName: .frances, addSchwingfest: { _ in })
+	}
 }

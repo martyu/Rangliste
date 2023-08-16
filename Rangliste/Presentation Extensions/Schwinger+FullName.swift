@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import RealmModels
 
 extension Schwinger {
 	var fullName: String { "\(firstName) \(lastName)" }
