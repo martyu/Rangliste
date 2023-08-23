@@ -12,5 +12,5 @@ public class Schwingfest: Object, ObjectKeyIdentifiable {
 	@Persisted public var date: Date
 	@Persisted public var location: String
 	@Persisted public var ageGroups: List<AgeGroup>
-	@Persisted public var scorecards: List<ScoreCard>
+	@Persisted public var scorecards: List<Scorecard>
 }

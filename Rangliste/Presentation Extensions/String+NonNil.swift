@@ -6,3 +6,15 @@
 //
 
 import Foundation
+
+extension String? {
+	var emptyIfNil: String {
+		get {
+			guard let self else { return "" }
+			return self
+		}
+		set {
+			self = newValue
+		}
+	}
+}

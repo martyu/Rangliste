@@ -8,11 +8,13 @@
 import SwiftUI
 
 @main
-struct RanglisteApp: App {
+struct RanglisteApp: SwiftUI.App {
     var body: some Scene {
         WindowGroup {
 //			RanglisteView(schwingfest: MockData.schwingfest)
 			SchwingfestList()
+				.textInputAutocapitalization(.words)
+				.autocorrectionDisabled(true)
         }
     }
 }
@@ -28,13 +30,13 @@ struct RanglisteApp: App {
 //	}
 //}
 
-struct SchwingfestIDKey: EnvironmentKey {
-	static var defaultValue: String = ""
+struct SchwingfestKey: EnvironmentKey {
+	static var defaultValue: Schwingfest = fatalError() as! Schwingfest
 }
 
 extension EnvironmentValues {
-	var schwingfestID: String {
-		get { self[SchwingfestIDKey.self] }
-		set { self[SchwingfestIDKey.self] = newValue }
+	var schwingfest: Schwingfest {
+		get { self[SchwingfestKey.self] }
+		set { self[SchwingfestKey.self] = newValue }
 	}
 }

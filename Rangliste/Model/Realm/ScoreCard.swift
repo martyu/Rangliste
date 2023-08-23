@@ -1,5 +1,5 @@
 //
-//  ScoreCard.swift
+//  Scorecard.swift
 //  Rangliste
 //
 //  Created by Marty Ulrich on 6/21/23.
@@ -8,18 +8,18 @@
 import Foundation
 import RealmSwift
 
-public class ScoreCard: Object, Identifiable {
-	@Persisted public var id: String = UUID().uuidString
+public class Scorecard: Object, Identifiable {
+	@Persisted(primaryKey: true) public var id: String = UUID().uuidString
 	@Persisted public var schwinger: Schwinger?
 	@Persisted public var matches: List<Match>
 	@Persisted public var ageGroup: AgeGroup?
 	@Persisted(originProperty: "scorecards") public var schwingfest: LinkingObjects<Schwingfest>
 }
 
-public extension ScoreCard {
-	func otherSchwinger(for round: Int) -> Schwinger {
+public extension Scorecard {
+	func opponent(for round: Int) -> Schwinger {
 		let match = matches[round]
-		return [match.schwinger1, match.schwinger2].first { $0 != schwinger }!!
+		return [match.schwinger1!, match.schwinger2!].first { $0 != schwinger }!!
 	}
 	
 	func matchResult(for round: Int) -> MatchResult? {
@@ -27,7 +27,7 @@ public extension ScoreCard {
 	}
 }
 
-public extension ScoreCard {
+public extension Scorecard {
 	var wins: Int {
 		matches.filter { match in
 			if match.schwinger1?.id == self.schwinger?.id {

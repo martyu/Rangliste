@@ -8,8 +8,11 @@
 import Foundation
 import RealmSwift
 
-public class AgeGroup: Object {
-	@Persisted public var name: String?
+public class AgeGroup: EmbeddedObject {
 	@Persisted public var minAge: Int?
 	@Persisted public var maxAge: Int?
+	public var name: String {
+		guard let minAge, let maxAge else { return "" }
+		return "\(minAge) - \(maxAge)"
+	}
 }

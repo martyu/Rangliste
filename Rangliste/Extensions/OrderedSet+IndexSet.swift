@@ -1,8 +1,18 @@
+////
+////  OrderedSet+IndexSet.swift
+////  Rangliste
+////
+////  Created by Marty Ulrich on 8/20/23.
+////
 //
-//  OrderedSet+IndexSet.swift
-//  Rangliste
+//import Foundation
+//import OrderedCollections
 //
-//  Created by Marty Ulrich on 8/20/23.
-//
-
-import Foundation
+//extension OrderedSet {
+//	mutating
+//	func remove(at indexPaths: IndexSet) {
+//		for index in indexPaths {
+//			remove(at: index)
+//		}
+//	}
+//}

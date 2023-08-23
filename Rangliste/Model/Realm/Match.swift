@@ -14,7 +14,7 @@ public class Match: Object {
 	@Persisted public var schwinger2: Schwinger?
 	@Persisted public var resultSchwinger1: MatchResult? = MatchResult()
 	@Persisted public var resultSchwinger2: MatchResult? = MatchResult()
-	@Persisted(originProperty: "matches") public var scorecard: LinkingObjects<ScoreCard>
+	@Persisted(originProperty: "matches") public var scorecard: LinkingObjects<Scorecard>
 }
 
 extension Match {

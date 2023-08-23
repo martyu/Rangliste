@@ -46,17 +46,17 @@
 // """
 //			
 //			// Get the scorecards for this age group and sort them by points
-//			let scorecardsForGroup = schwingfest.scoreCards.filter { $0.ageGroup.ages == ageGroup.ages }
+//			let scorecardsForGroup = schwingfest.scorecards.filter { $0.ageGroup.ages == ageGroup.ages }
 //			let sortedScorecards = scorecardsForGroup.sorted { $0.totalPoints > $1.totalPoints }
 //			
 //			// Loop over the scorecards to create the table rows
-//			for (index, scoreCard) in sortedScorecards.enumerated() {
+//			for (index, scorecard) in sortedScorecards.enumerated() {
 //				html += """
 // <tr>
 // <td>\(index + 1)</td>
-// <td>\(scoreCard.schwinger.firstName) \(scoreCard.schwinger.lastName)</td>
-// <td>\(scoreCard.winLossTieString)</td>
-// <td>\(scoreCard.totalPoints)</td>
+// <td>\(scorecard.schwinger.firstName) \(scorecard.schwinger.lastName)</td>
+// <td>\(scorecard.winLossTieString)</td>
+// <td>\(scorecard.totalPoints)</td>
 // </tr>
 // """
 //			}

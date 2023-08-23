@@ -6,18 +6,21 @@
 //
 
 import SwiftUI
-import RealmSwift
-import RealmModels
 
+@MainActor
 struct SchwingfestList: View {
-	@ObservedSectionedResults(RealmModels.Schwingfest.self, sectionKeyPath: \.year) private var schwingfests
+	@StateObject private var schwingfestRepo = DataManager.shared
+	
 	@State private var isShowingSheet = false
+	@State private var confirmDeleteIndexes: IndexSet?
 	
 	var body: some View {
 		NavigationView {
 			List {
-				ForEach(schwingfests) { section in
-					yearSection(for: section)
+				let groups = Dictionary(grouping: schwingfestRepo.schwingfests, by: { $0.year })
+				let keys = Array(groups.keys).sorted()
+				ForEach(keys, id: \.self) { year in
+					yearSection(year: year, schwingfests: groups[year]!.sorted { $0.date < $1.date })
 				}
 			}
 			.toolbar {
@@ -28,35 +31,35 @@ struct SchwingfestList: View {
 		}
 		.navigationTitle("Schwingfests")
 		.sheet(isPresented: $isShowingSheet) {
-			AddSchwingfestView {
-				$0.flatMap { newSchwingfest in
-					let _ = Task {
-						let realm = try! await Realm()
-						realm.beginWrite()
-						realm.add(newSchwingfest)
-						try realm.commitWrite()
-					}
-				}
-				isShowingSheet = false
-			}
-			
+			AddSchwingfestView(shouldShow: $isShowingSheet)
 		}
 	}
 	
 	@ViewBuilder
-	private func yearSection(for group: ResultsSection<Int, Schwingfest>) -> some View {
-		Section(header: Text("\(group.key)".replacingOccurrences(of: ",", with: ""))) {
-			ForEach(group) { schwingfest in
+	private func yearSection(year: Int, schwingfests: [Schwingfest]) -> some View {
+		Section(header: Text("\(year)".replacingOccurrences(of: ",", with: ""))) {
+			ForEach(schwingfests) { schwingfest in
 				schwingfestCell(schwingfest)
 			}
+			.onDelete { indexSet in
+//				confirmDeleteIndexes = indexSet
+				for index in indexSet {
+					schwingfestRepo.schwingfests.remove(schwingfests[index])
+				}
+			}
 		}
+//		.deleteConfirmation(isShowingDeleteConfirmation: isPresent($confirmDeleteIndexes)) {
+//			for index in confirmDeleteIndexes! {
+//				schwingfestRepo.schwingfests.remove(schwingfests[index])
+//			}
+//		}
 	}
 	
 	@ViewBuilder
 	private func schwingfestCell(_ schwingfest: Schwingfest) -> some View {
 		NavigationLink {
-			SchwingfestView(schwingfest: schwingfest)
-//				.environmentObject(schwingfest)
+			SchwingfestView()
+				.environmentObject(schwingfest)
 		} label: {
 			HStack {
 				Text(schwingfest.location)
@@ -78,6 +81,12 @@ struct SchwingfestList: View {
 
 extension Schwingfest {
 	var year: Int { Calendar.current.component(.year, from: date) }
+}
+
+extension Schwingfest: Identifiable {
+	var id: String {
+		"\(date)-\(location)"
+	}
 }
 
 let dateFormatter: DateFormatter = {

@@ -6,125 +6,106 @@
 //
 
 import SwiftUI
-import RealmModels
-import RealmSwift
-
-class MatchProjection: Projection<Match> {
-	@Projected(\Match.resultSchwinger1) var _resultSchwinger1
-	
-	var resultSchwinger1: MatchResult {
-		get {
-			_resultSchwinger1!
-		}
-		set {
-			_resultSchwinger1 = newValue
-		}
-	}
-
-}
-
-class ScorecardProjection: Projection<Scorecard> {
-	@Projected(\Scorecard.schwinger?.firstName) var _firstName
-	@Projected(\Scorecard.schwinger?.lastName) var _lastName
-	@Projected(\Scorecard.schwinger?.age) var _age
-	@Projected(\Scorecard.ageGroup) var ageGroup
-	@Projected(\Scorecard.schwinger) var _schwinger
-	@Projected(\Scorecard.matches) var matches
-
-	var firstName: String {
-		get {
-			_firstName!
-		}
-		set {
-			_firstName = newValue
-		}
-	}
-	
-	var lastName: String {
-		get {
-			_lastName!
-		}
-		set {
-			_lastName = newValue
-		}
-	}
-	
-	var age: Int {
-		get {
-			_age!
-		}
-		set {
-			_age = newValue
-		}
-	}
-	
-	var schwinger: Schwinger {
-		get {
-			_schwinger!
-		}
-		set {
-			_schwinger = newValue
-		}
-	}
-}
 
 struct ScorecardView: View {
-	@ObservedRealmObject var scorecard: ScorecardProjection
-//	@Environment var schwingfest: Schwingfest
+	@EnvironmentObject var schwingfest: Schwingfest
 	
-	@State private var resultSchwinger2: MatchResult
+	@Binding var scorecard: Scorecard
 	
-	init(scorecard: ScorecardProjection, resultSchwinger2: MatchResult) {
-		self.scorecard = scorecard
-		self.resultSchwinger2 = resultSchwinger2
-	}
-	
+	@State private var showAddMatch: Bool = false
+	@State private var selectedMatch: Match?
+				
 	var body: some View {
-//		List {
-//			Section(header: Text("Schwinger")) {
-//				TextField("First", text: $scorecard.firstName)
-//				TextField("Last", text: $scorecard.lastName)
-//				TextField("Age", value: $scorecard.age, formatter: NumberFormatter())
-//				Picker("Age Group", selection: $scorecard.ageGroup) {
-//					ForEach(schwingfest.ageGroups, id: \.name) { ageGroup in
-//						Text(ageGroup.name).tag(ageGroup)
-//					}
-//				}
-//			}
-//			
-			Section(header: Text("Matches")) {
-				let resultsForSchwinger = scorecard.matches.map { $0.result(for: scorecard.schwinger) }
-				List($scorecard.matches, id: \.round) { $match in
-					HStack {
-						Text("\(match.round ?? 0): \(match.schwinger2?.fullName ?? "none")")
-							.truncationMode(.middle)
-						Spacer()
-						if let result = resultsForSchwinger[match.round ?? 1 - 1] {
-							ResultPicker(result: $resultSchwinger2, schwingerName: match.schwinger2!.fullName)
-							Text("\(result.outcomeSymbol) \(result.points.pointsFormatted)").monospacedDigit()
-						}
+		List {
+			Section(header: Text("Schwinger")) {
+				TextField("First", text: $scorecard.schwinger.firstName)
+				TextField("Last", text: $scorecard.schwinger.lastName)
+				Stepper("Age: \(scorecard.schwinger.age)", value: $scorecard.schwinger.age, in: 1...99)
+				Picker("Age Group", selection: $scorecard.ageGroup) {
+					ForEach(schwingfest.ageGroups, id: \.name) { ageGroup in
+						Text(ageGroup.name).tag(ageGroup)
 					}
 				}
+			}
+			let resultsForSchwinger = scorecard.matches.map { $0.result(for: scorecard.schwinger) }
+			Section(content: {
+				if !resultsForSchwinger.isEmpty {
+					ForEach($scorecard.matches, id: \.round) { $match in
+						HStack {
+							Text("\(match.round): \(scorecard.opponent(for: match).fullName)")
+								.truncationMode(.middle)
+							Spacer()
+							Text("\(match.result(for: scorecard.schwinger).outcomeSymbol) \(match.result(for: scorecard.schwinger).points.pointsFormatted)").monospacedDigit()
+						}
+					}
+					.onDelete { matchIndexesToDelete in
+						matchIndexesToDelete.forEach { DataManager.shared.removeMatch(scorecard.matches[$0]) }
+						scorecard = scorecard
+					}
+				}
+			}, header: {
+				Text("Matches")
+			}, footer: {
 				HStack {
 					Text("Total")
 					Spacer()
-					Text("\(resultsForSchwinger.compactMap(\.?.points).reduce(0, +).pointsFormatted)").monospacedDigit().bold()
+					Text("\(resultsForSchwinger.map(\.points).reduce(0, +).pointsFormatted)").monospacedDigit().bold()
 				}
+			})
+		}
+		.navigationTitle(scorecard.schwinger.fullName)
+		.minimumScaleFactor(0.5)
+		.font(.system(size: 16))
+		.toolbar {
+			ToolbarItem(placement: .navigationBarTrailing) {
+				Button {
+					showAddMatch = true
+				} label: {
+					Image(systemName: "plus")
+				}
+				.disabled(scorecard.availableRoundsForSchwinger.isEmpty)
 			}
-//		}
-//		.navigationTitle("Score Card")
+		}
+		.sheet(isPresented: $showAddMatch) {
+			AddMatchView(
+				shouldShow: $showAddMatch,
+				scorecard: scorecard,
+				match: selectedMatch) { addMatchView in
+					selectedMatch.flatMap(DataManager.shared.removeMatch)
+					selectedMatch = nil
+					DataManager.shared.addMatch(
+						Match(
+							schwingfest: schwingfest.id,
+							round: addMatchView.round,
+							schwinger1: addMatchView.schwinger,
+							schwinger2: addMatchView.opponent,
+							resultSchwinger1: addMatchView.resultSchwinger,
+							resultSchwinger2: addMatchView.resultOpponent
+						)
+					)
+				}
+		}
 	}
 }
 
 //struct ScorecardView_Previews: PreviewProvider {
 //	static var previews: some View {
-//		let binding: Binding<Scorecard> = Binding<Scorecard>(get: {
-//			MockData.schwingfest.scorecards.first!
-//		}, set: { scorecard, _ in
-//			MockData.schwingfest.scorecards[0] = scorecard
-//		})
+//		ScorecardViewPreview()
+//	}
+//}
 //
-//		ScorecardView(scorecard: binding)
-//			.environmentObject(MockData.schwingfest)
+//private struct ScorecardViewPreview: View {
+//	@StateObject var scorecard: Scorecard
+//
+//	var body: some View {
+//		NavigationView {
+//			ScorecardView(scorecard: Binding(get: {
+//				DataManager.shared.schwingfests.first!.scorecards.first!
+//			}, set: { newValue in
+//				DataManager.shared.schwingfests.first!.scorecards.removeAll { $0.schwingfest == newValue.schwingfest && $0.schwinger == newValue.schwinger }
+//				scorecard = newValue
+//			}
+//				.environmentObject(DataManager.shared.schwingfest(withID: DataManager.shared.schwingfests.first!.id))
+//		}
 //	}
 //}

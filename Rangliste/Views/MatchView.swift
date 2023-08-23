@@ -1,29 +1,65 @@
 //import SwiftUI
-//import RealmModels
+//
+//class ProjectedMatch: Projection<Match> {
+//	@Projected(\Match.schwinger1) var _schwinger1
+//	@Projected(\Match.schwinger2) var _schwinger2
+//	@Projected(\Match.resultSchwinger1) var _resultSchwinger1
+//	@Projected(\Match.resultSchwinger2) var _resultSchwinger2
+//	@Projected(\Match.round) var round
+//	
+//	var schwinger1: Schwinger {
+//		get {
+//			_schwinger1!
+//		}
+//		set {
+//			_schwinger1 = newValue
+//		}
+//	}
+//	
+//	var schwinger2: Schwinger {
+//		get {
+//			_schwinger2!
+//		}
+//		set {
+//			_schwinger2 = newValue
+//		}
+//	}
+//	
+//	var resultSchwinger1: MatchResult {
+//		get {
+//			_resultSchwinger1!
+//		}
+//		set {
+//			_resultSchwinger1 = newValue
+//		}
+//	}
+//	
+//	var resultSchwinger2: MatchResult {
+//		get {
+//			_resultSchwinger2!
+//		}
+//		set {
+//			_resultSchwinger2 = newValue
+//		}
+//	}
+//}
 //
 //struct MatchView: View {
-//	init(match: Binding<Match>, results: [String] = Outcome.allCases.map { "\($0)" }) {
-//		self._match = match
-//		self.results = results
-//	}
+//	@Environment var schwingfest: Schwingfest
 //	
 //	@State private var showAlert = false
 //	@State private var alertMessage = ""
-//	
-//	@Environment(\.schwingfestID) var schwingfestId
-//	@Environment(\.managedObjectContext) var moc
 //
-//	@Binding var match: Match
-//	private var schwingfest: Schwingfest { DataManager.shared.schwingfest(withID: schwingfestId) }
+//	@ObservedRealmObject var match: ProjectedMatch
 //	
 //	private var results = Outcome.allCases.map { "\($0)" }
 //	private var schwingers: [Schwinger] {
-//		schwingfest.scoreCards.map(\.schwinger)
+//		schwingfest.scorecards.compactMap(\.schwinger)
 //	}
 //	
 //	var body: some View {
 //		NavigationView {
-//			Form {
+////			Form {
 //				Picker("Schwingers", selection: $match.schwinger1) {
 //					ForEach(schwingers) { schwinger in
 //						Text(schwinger.fullName).tag(schwinger)
@@ -34,18 +70,18 @@
 //						Text(schwinger.fullName).tag(schwinger)
 //					}
 //				}
-//				ResultPicker(outcome: $match.resultSchwinger1.outcome, points: $match.resultSchwinger1.points, schwingerName: match.schwinger1.fullName)
-//				ResultPicker(outcome: $match.resultSchwinger2.outcome, points: $match.resultSchwinger1.points, schwingerName: match.schwinger2.fullName)
+//			ResultPicker(result: $match.resultSchwinger1, schwingerName: match.schwinger1.fullName)
+//			ResultPicker(result: $match.resultSchwinger2, schwingerName: match.schwinger2.fullName)
 //				TextField("Round", value: $match.round, formatter: NumberFormatter())
 //					.keyboardType(.numberPad)
-//			}
+////			}
 //			.navigationBarTitle("Match Details")
 //			.alert(isPresented: $showAlert, content: { alertView })
 //		}
 //	}
 //	
 //	private func handleRoundChange() {
-//		let existingRounds = schwingfest.scoreCards.map { $0.matches.map { $0.round } }.flatMap { $0 }
+//		let existingRounds = schwingfest.scorecards.map { $0.matches.map { $0.round } }.flatMap { $0 }
 //		if existingRounds.contains(match.round) {
 //			alertMessage = "This round already exists for this Schwinger."
 //			showAlert = true
@@ -64,41 +100,10 @@
 //struct MatchView_Previews: PreviewProvider {
 //    static var previews: some View {
 //		let match = Binding<Match>(get: {
-//			MockData.schwingfest.scoreCards[0].matches[0]
+//			MockData.schwingfest.scorecards[0].matches[0]
 //		}, set: { match in
-//			MockData.schwingfest.scoreCards[0].matches[0] = match
+//			MockData.schwingfest.scorecards[0].matches[0] = match
 //		})
 //		MatchView(match: match)
 //    }
 //}
-//
-//struct ResultPicker: View {
-//	@Binding var outcome: Outcome
-//	@Binding var points: Double
-//	
-//	static var points: [Double] { [8.5, 8.75, 9, 9.25, 9.5, 9.75, 10] }
-//
-//	var schwingerName: String
-//	
-//	var body: some View {
-//		VStack {
-//			Picker("\(schwingerName)", selection: $outcome) {
-//				ForEach(Outcome.allCases) { outcome in
-//					Text(outcome.rawValue).tag(outcome)
-//				}
-//			}
-//			Picker("Points", selection: $points) {
-//				ForEach(Self.points) { point in
-//					Text("\(point.pointsFormatted)").tag(point)
-//				}
-//			}
-//		}
-//	}
-//}
-//
-//extension Double: Identifiable {
-//	public var id: String {
-//		"\(self)"
-//	}
-//}
-//

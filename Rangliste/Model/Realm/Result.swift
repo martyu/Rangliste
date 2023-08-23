@@ -8,7 +8,7 @@
 import Foundation
 import RealmSwift
 
-public class MatchResult: Object {
+public class MatchResult: EmbeddedObject {
 	@Persisted public var outcome: Outcome = .tie
 	@Persisted public var points: Double = 9
 }
@@ -24,7 +24,7 @@ public extension MatchResult {
 }
 
 extension Double {
-	var pointsFormatted: String {
+	public var pointsFormatted: String {
 		String(format: "%.2f", self)
 	}
 }
