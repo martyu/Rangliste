@@ -1,0 +1,29 @@
+{
+  "configurations" : [
+    {
+      "id" : "89320605-D7B2-474B-AF24-1E9E3C6A0D12",
+      "name" : "Test Scheme Action",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "targetForVariableExpansion" : {
+      "containerPath" : "container:Rangliste.xcodeproj",
+      "identifier" : "76E026AF2A4145420018A955",
+      "name" : "Rangliste"
+    }
+  },
+  "testTargets" : [
+    {
+      "parallelizable" : true,
+      "target" : {
+        "containerPath" : "container:Rangliste.xcodeproj",
+        "identifier" : "76F54E722A93E338005D4E81",
+        "name" : "RanglisteTests"
+      }
+    }
+  ],
+  "version" : 1
+}
