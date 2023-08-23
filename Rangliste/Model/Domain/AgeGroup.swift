@@ -26,3 +26,9 @@ extension AgeGroup: Hashable {
 		hasher.combine(name)
 	}
 }
+
+extension AgeGroup: Comparable {
+	static func < (lhs: AgeGroup, rhs: AgeGroup) -> Bool {
+		lhs.ages.lowerBound < rhs.ages.lowerBound
+	}
+}

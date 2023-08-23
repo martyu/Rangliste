@@ -21,15 +21,31 @@ struct AddAgeGroupCell: View {
 			TextField("", text: $newAgeGroupOldest, prompt: Text("Oldest"))
 			TextField("", text: $ageGroupName, prompt: Text("Name (optional)"))
 			Button("Add") {
-				ageGroups.append(AgeGroup(name: ageGroupName.isEmpty ? nil : ageGroupName, ages: Int(newAgeGroupYoungest)!...Int(newAgeGroupOldest)!))
+				ageGroups.append(AgeGroup(name: ageGroupName.isEmpty ? nil : ageGroupName, ages: ages!))
 				newAgeGroupOldest = ""
 				newAgeGroupYoungest = ""
 				ageGroupName = ""
 			}
 			.buttonStyle(BorderedButtonStyle())
-			.disabled(newAgeGroupOldest.isEmpty || newAgeGroupYoungest.isEmpty)
+			.disabled(newAgeGroupOldest.isEmpty || newAgeGroupYoungest.isEmpty || (ages.flatMap { intersectsRange(x: $0, y: ageGroups.map(\.ages)) } ?? true) == true )
 		}
 		.minimumScaleFactor(0.5)
 		.keyboardType(.numberPad)
 	}
+	
+	private var ages: ClosedRange<Int>? {
+		guard
+			let newAgeGroupYoungest = Int(newAgeGroupYoungest),
+			let newAgeGroupOldest = Int(newAgeGroupOldest),
+			newAgeGroupYoungest < newAgeGroupOldest
+		else {
+			return nil
+		}
+		
+		return newAgeGroupYoungest...newAgeGroupOldest
+	}
+}
+
+func intersectsRange(x: ClosedRange<Int>, y: [ClosedRange<Int>]) -> Bool {
+	return y.contains { $0.overlaps(x) }
 }

@@ -15,15 +15,12 @@ extension Scorecard {
 			.scorecards
 			.filter { opponentScorecard in
 				opponentScorecard.schwinger != schwinger &&
-				
-				//TODO: dont filter this, just show a nav view of all groups
-				opponentScorecard.ageGroup == ageGroup &&
 				opponentScorecard.availableRoundsForSchwinger.isEmpty == false
 			}
 	}
 
-	var possibleOpponents: [Schwinger] {
-		possibleOpponentScorecards.map(\.schwinger)
+	var possibleOpponents: [Scorecard] {
+		possibleOpponentScorecards.filter { $0.schwinger != schwinger }
 	}
 
 	var availableRoundsForSchwinger: [Int] {
@@ -32,66 +29,62 @@ extension Scorecard {
 		}
 	}
 	
-	var availableRoundsForOpponents: [Schwinger: [Int]] {
-		Dictionary(uniqueKeysWithValues: possibleOpponentScorecards.map { ($0.schwinger, $0.availableRoundsForSchwinger) })
+	var availableRoundsForOpponents: [Scorecard: [Int]] {
+		Dictionary(uniqueKeysWithValues: possibleOpponentScorecards.map { ($0, $0.availableRoundsForSchwinger) })
 	}
 }
 
 struct AddMatchView: View {
+	@EnvironmentObject var schwingfest: Schwingfest
+	
 	@Binding var shouldShow: Bool
 	
-	@State var opponent: Schwinger
+	@State var opponent: Scorecard
 	@State var resultOpponent: MatchResult
 	@State var resultSchwinger: MatchResult
-	@State var round: Int
-	@State var roundIndex = 0 {
-		didSet {
-			round = availableRounds[roundIndex]
-		}
-	}
+	@State var round: Int = 1
 	
 	let schwinger: Schwinger
-	let possibleOpponents: [Schwinger]
-	let isEdit: Bool
+	let possibleOpponents: [AgeGroup: [Scorecard]]
 	let addMatch: (AddMatchView) -> ()
 	let availableRoundsForSchwinger: [Int]
-	let availableRoundsForOpponents: [Schwinger: [Int]]
+	let availableRoundsForOpponents: [Scorecard: [Int]]
 	
 	private var availableRounds: [Int] {
-		Array(OrderedSet(availableRoundsForSchwinger).intersection(OrderedSet(availableRoundsForOpponents[opponent]!)))
+		Array(
+			OrderedSet(
+				availableRoundsForSchwinger
+			).intersection(
+				OrderedSet(
+					availableRoundsForOpponents[opponent]!
+				)
+			)
+		)
 	}
 		
-	init(shouldShow: Binding<Bool>, scorecard: Scorecard, match: Match? = nil, addMatch: @escaping (AddMatchView) -> ()) {
+	init(shouldShow: Binding<Bool>, scorecard: Scorecard, addMatch: @escaping (AddMatchView) -> ()) {
 		_shouldShow = shouldShow
 				
 		self.addMatch = addMatch
 		self.schwinger = scorecard.schwinger
-		self.possibleOpponents = scorecard.possibleOpponents
-		self.opponent = match.flatMap(scorecard.opponent) ?? possibleOpponents.first!
-		self.resultOpponent = match.flatMap(scorecard.matchResult) ?? MatchResult()
-		self.resultSchwinger = match?.result(for: scorecard.schwinger) ?? MatchResult()
-		self.isEdit = match != nil
-		self.round = match?.round ?? 1
+		self.possibleOpponents = scorecard.possibleOpponentScorecards.filter { $0.schwinger != scorecard.schwinger }.schwingersGroupedByAgeGroup
+		self.opponent = possibleOpponents.first!.value.first!
+		self.resultOpponent = MatchResult()
+		self.resultSchwinger = MatchResult()
 		self.availableRoundsForOpponents = scorecard.availableRoundsForOpponents
 		self.availableRoundsForSchwinger = scorecard.availableRoundsForSchwinger
-		
-		self.round = match?.round ?? availableRounds[0]
 	}
 		
 	var body: some View {
 		NavigationView {
 			Form {
 				Section(header: Text("Select Opponent")) {
-					Picker(opponent.fullName, selection: $opponent) {
-						ForEach(possibleOpponents, id: \.id) { opponent in
-							Text(opponent.fullName).tag(opponent)
-						}
-					}
+					opponentPicker
 				}
 				
 				Section(header: Text("Match Details")) {
-					MatchResultView(matchResult: $resultSchwinger, title: "Result for \(schwinger.fullName)")
-					MatchResultView(matchResult: $resultOpponent, title: "Result for \(opponent.fullName)")
+					MatchResultView(matchResult: $resultSchwinger, title: "Result for \(schwinger.fullName)", extraRound: round == 7)
+					MatchResultView(matchResult: $resultOpponent, title: "Result for \(opponent.schwinger.fullName)", extraRound: round == 7)
 					roundPicker
 				}
 				
@@ -101,6 +94,9 @@ struct AddMatchView: View {
 				}
 			}
 			.navigationTitle(title)
+		}
+		.task {
+			round = availableRounds[0]
 		}
 	}
 	
@@ -118,15 +114,49 @@ struct AddMatchView: View {
 		}
 	}
 	
+	@ViewBuilder
+	private var opponentPicker: some View {
+		OpponentPicker(opponentsByAgeGroup: possibleOpponents, selectedAgeGroup: opponent.ageGroup, selectedOpponent: $opponent)
+	}
+	
 	private var title: String {
-		isEdit ? "Edit Match" : "Add Match"
+		"Add Match"
+	}
+}
+
+struct OpponentPicker: View {
+	let opponentsByAgeGroup: [AgeGroup: [Scorecard]]
+	
+	@State private var selectedAgeGroup: AgeGroup
+	@Binding var selectedOpponent: Scorecard
+	
+	init(opponentsByAgeGroup: [AgeGroup : [Scorecard]], selectedAgeGroup: AgeGroup, selectedOpponent: Binding<Scorecard>) {
+		self.opponentsByAgeGroup = opponentsByAgeGroup
+		_selectedAgeGroup = State(initialValue: selectedAgeGroup)
+		_selectedOpponent = selectedOpponent
+	}
+	
+	var body: some View {
+		Picker("Select Age Group", selection: $selectedAgeGroup) {
+			ForEach(Array(opponentsByAgeGroup.keys), id: \.self) { ageGroup in
+				Text(ageGroup.name).tag(ageGroup)
+			}
+		}
+		
+		if let opponents = opponentsByAgeGroup[selectedAgeGroup] {
+			Picker("Select Opponent", selection: $selectedOpponent) {
+				ForEach(opponents, id: \.self) { opponent in
+					Text(opponent.schwinger.fullName).tag(opponent)
+				}
+			}
+		}
 	}
 }
 
 struct MatchResultView: View {
 	@Binding var matchResult: MatchResult
 	var title: String
-	let extraRound: Bool = false
+	let extraRound: Bool
 	
 	var body: some View {
 		VStack {
@@ -135,7 +165,7 @@ struct MatchResultView: View {
 					Text(outcome.rawValue.capitalized).tag(outcome)
 				}
 			}
-			Stepper("Points: \(matchResult.points.pointsFormatted)", value: $matchResult.points, in: 8.5...10, step: 0.25)
+			Stepper("Points: \(matchResult.points.pointsFormatted)", value: $matchResult.points, in: extraRound ? 0...0.25 : 8.5...10, step: 0.25)
 		}
 	}
 }

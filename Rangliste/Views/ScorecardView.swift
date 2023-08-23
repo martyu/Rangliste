@@ -13,7 +13,6 @@ struct ScorecardView: View {
 	@Binding var scorecard: Scorecard
 	
 	@State private var showAddMatch: Bool = false
-	@State private var selectedMatch: Match?
 				
 	var body: some View {
 		List {
@@ -32,7 +31,7 @@ struct ScorecardView: View {
 				if !resultsForSchwinger.isEmpty {
 					ForEach($scorecard.matches, id: \.round) { $match in
 						HStack {
-							Text("\(match.round): \(scorecard.opponent(for: match).fullName)")
+							Text("\(match.round).  \(scorecard.opponent(for: match).fullName)")
 								.truncationMode(.middle)
 							Spacer()
 							Text("\(match.result(for: scorecard.schwinger).outcomeSymbol) \(match.result(for: scorecard.schwinger).points.pointsFormatted)").monospacedDigit()
@@ -69,16 +68,13 @@ struct ScorecardView: View {
 		.sheet(isPresented: $showAddMatch) {
 			AddMatchView(
 				shouldShow: $showAddMatch,
-				scorecard: scorecard,
-				match: selectedMatch) { addMatchView in
-					selectedMatch.flatMap(DataManager.shared.removeMatch)
-					selectedMatch = nil
+				scorecard: scorecard) { addMatchView in
 					DataManager.shared.addMatch(
 						Match(
 							schwingfest: schwingfest.id,
 							round: addMatchView.round,
 							schwinger1: addMatchView.schwinger,
-							schwinger2: addMatchView.opponent,
+							schwinger2: addMatchView.opponent.schwinger,
 							resultSchwinger1: addMatchView.resultSchwinger,
 							resultSchwinger2: addMatchView.resultOpponent
 						)

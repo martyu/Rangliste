@@ -10,6 +10,14 @@ import OrderedCollections
 
 //TODO: add plus button in top right to add more schwingers
 
+
+extension [Scorecard] {
+	var schwingersGroupedByAgeGroup: [AgeGroup: [Scorecard]] {
+		let keysAndValues = Dictionary(grouping: self) { $0.ageGroup }.sorted { $0.key < $1.key }
+		return Dictionary(uniqueKeysWithValues: keysAndValues)
+	}
+}
+
 struct SchwingfestView: View {
 	@EnvironmentObject private var schwingfest: Schwingfest
 	
@@ -77,16 +85,19 @@ struct SchwingfestSettingsView: View {
 	@Binding var ageGroups: [AgeGroup]
 
 	var body: some View {
-		List {
-			ForEach(ageGroups, id: \.name) { ageGroup in
-				Text(ageGroup.name).tag(ageGroup)
+		NavigationView {
+			List {
+				ForEach(ageGroups, id: \.name) { ageGroup in
+					Text(ageGroup.name).tag(ageGroup)
+				}
+				.onDelete { indexSet in
+					guard ageGroups.count > 1 else { return ageGroups = ageGroups }
+					indexSet.forEach { ageGroups.remove(at: $0) }
+				}
+				
+				AddAgeGroupCell(ageGroups: $ageGroups)
 			}
-			.onDelete { indexSet in
-				guard ageGroups.count > 1 else { return ageGroups = ageGroups }
-				indexSet.forEach { ageGroups.remove(at: $0) }
-			}
-			
-			AddAgeGroupCell(ageGroups: $ageGroups)
+			.navigationTitle("Age Groups")
 		}
 	}
 }
@@ -108,28 +119,3 @@ struct SchwingfestViewPreview: View {
 			.environmentObject(schwingfest)
 	}
 }
-
-//extension Binding where Value == OrderedSet<Scorecard> {
-//	func toBindingArray() -> OrderedSet<Binding<Scorecard>> {
-//		OrderedSet<Binding<Scorecard>>(self.wrappedValue.indices.map { index in
-//			Binding<Scorecard>(
-//				get: { self.wrappedValue[index] },
-//				set: { newValue in
-//					wrappedValue.update(newValue, at: index)
-////					set.update(newValue, at: index)
-////					self.wrappedValue = set
-//				}
-//			)
-//		})
-//	}
-//}
-//
-//extension Binding: Hashable, Equatable where Value == Scorecard {
-//	public static func == (lhs: Binding<Value>, rhs: Binding<Value>) -> Bool {
-//		lhs.wrappedValue == rhs.wrappedValue
-//	}
-//
-//	public func hash(into hasher: inout Hasher) {
-//		hasher.combine(wrappedValue.hashValue)
-//	}
-//}
