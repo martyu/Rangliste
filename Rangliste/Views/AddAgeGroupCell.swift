@@ -20,6 +20,7 @@ struct AddAgeGroupCell: View {
 			TextField("", text: $newAgeGroupYoungest, prompt: Text("Youngest"))
 			TextField("", text: $newAgeGroupOldest, prompt: Text("Oldest"))
 			TextField("", text: $ageGroupName, prompt: Text("Name (optional)"))
+				.keyboardType(.default)
 			Button("Add") {
 				ageGroups.append(AgeGroup(name: ageGroupName.isEmpty ? nil : ageGroupName, ages: ages!))
 				newAgeGroupOldest = ""

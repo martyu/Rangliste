@@ -23,6 +23,7 @@ struct SchwingfestView: View {
 	
 	@State private var showSettings: Bool = false
 	@State private var showAddScorecard: Bool = false
+	@State private var showRangliste: Bool = false
 
 	var body: some View {
 		let scorecardsByAgeGroup = Dictionary(grouping: $schwingfest.scorecards) { $0.wrappedValue.ageGroup.ages.lowerBound }.sorted { $0.key < $1.key }
@@ -35,7 +36,13 @@ struct SchwingfestView: View {
 				}
 			}
 			.onDelete { indexSet in
-				schwingfest.scorecards.remove(atOffsets: indexSet)
+				DataManager.shared.removeScorecards(atOffsets: indexSet, forSchwingfest: schwingfest)
+			}
+			
+			Button {
+				showRangliste = true
+			} label: {
+				Text("Show Rangliste")
 			}
 		}
 		.navigationTitle("\(schwingfest.location) \(schwingfest.date.year)")
@@ -63,6 +70,12 @@ struct SchwingfestView: View {
 				AddScorecardView(ageGroup: schwingfest.ageGroups.first!, shouldShow: $showAddScorecard)
 					.environmentObject(schwingfest)
 			}
+		}
+		.sheet(isPresented: $showRangliste) {
+			RanglisteView(schwingfest: schwingfest)
+				.onDisappear {
+					showRangliste = false
+				}
 		}
 	}
 

@@ -12,7 +12,6 @@ import UIKit
 class DataManager: SchwingfestRepo, ObservableObject {
 	@Published var schwingfests: Set<Schwingfest> = Set()
 	
-//	@MainActor
 	private init() {
 		loadSchwingfests()
 		NotificationCenter.default.addObserver(self, selector: #selector(saveSchwingfests), name: .deviceDidShakeNotification, object: nil)
@@ -24,7 +23,6 @@ class DataManager: SchwingfestRepo, ObservableObject {
 }
 
 extension DataManager {
-//	@MainActor
 	static let shared = DataManager()
 	
 	func saveSchwingfest(_ schwingfest: Schwingfest) {
@@ -53,6 +51,15 @@ extension DataManager {
 		}
 		objectWillChange.send()
 	}
+	
+	func removeScorecards(atOffsets indexSet: IndexSet, forSchwingfest schwingfest: Schwingfest) {
+		schwingfest.scorecards.remove(atOffsets: indexSet)
+		schwingfest.scorecards.forEach { scorecard in
+			scorecard.matches.removeAll { match in
+				[match.schwinger1, match.schwinger2].contains(scorecard.schwinger)
+			}
+		}
+	}
 
 	private func loadSchwingfests() {
 		let schwingfestsFile = schwingfestsFile
@@ -61,7 +68,7 @@ extension DataManager {
 	}
 
 	@objc
-	private func saveSchwingfests() {
+	func saveSchwingfests() {
 		do {
 			try JSONEncoder().encode(schwingfests).write(to: schwingfestsFile)
 		} catch {
@@ -73,5 +80,11 @@ extension DataManager {
 		let fileManager = FileManager.default
 		let urls = fileManager.urls(for: .documentDirectory, in: .userDomainMask)
 		return urls[0].appending(path: "schwingfests")
+	}
+}
+
+extension Schwingfest {
+	var matches: [Match] {
+		scorecards.flatMap(\.matches)
 	}
 }

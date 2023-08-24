@@ -8,25 +8,25 @@
 import SwiftUI
 import UIKit
 
-//struct ShakeResponder: ViewModifier {
-//	@State private var enabled: Bool = false
-//	
-//	let handler: (Bool) -> ()
-//
-//	func body(content: Content) -> some View {
-//		content
-//			.onReceive(NotificationCenter.default.publisher(for: .deviceDidShakeNotification)) { _ in
-//				enabled.toggle()
-//				handler(enabled)
-//			}
-//	}
-//}
-//
-//extension View {
-//	func onShake(handler: @escaping (Bool) -> ()) -> some View {
-//		modifier(ShakeResponder(handler: handler))
-//	}
-//}
+struct ShakeResponder: ViewModifier {
+	@State private var enabled: Bool = false
+	
+	let handler: (Bool) -> ()
+
+	func body(content: Content) -> some View {
+		content
+			.onReceive(NotificationCenter.default.publisher(for: .deviceDidShakeNotification)) { _ in
+				enabled.toggle()
+				handler(enabled)
+			}
+	}
+}
+
+extension View {
+	func onShake(handler: @escaping (Bool) -> ()) -> some View {
+		modifier(ShakeResponder(handler: handler))
+	}
+}
 
 extension UIWindow {
 	open override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {

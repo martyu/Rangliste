@@ -57,13 +57,15 @@ struct AddSchwingfestView: View {
 				DatePicker("Date", selection: $date, displayedComponents: .date)
 				
 				List {
-					ForEach(ageGroups.sorted { $0.ages.lowerBound < $1.ages.lowerBound }, id: \.name) { group in
-						Text(group.name).tag(group.name)
+					Section("Age Groups") {
+						ForEach(ageGroups.sorted { $0.ages.lowerBound < $1.ages.lowerBound }, id: \.name) { group in
+							Text(group.name).tag(group.name)
+						}
+						.onDelete {
+							$0.forEach { ageGroups.remove(at: $0) }
+						}
+						AddAgeGroupCell(ageGroups: $ageGroups)
 					}
-					.onDelete {
-						$0.forEach { ageGroups.remove(at: $0) }
-					}
-					AddAgeGroupCell(ageGroups: $ageGroups)
 				}
 			}
 			.padding()
