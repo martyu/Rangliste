@@ -41,6 +41,10 @@ extension Match {
 			fatalError()
 		}
 	}
+	
+	func opponent(for schwinger: Schwinger) -> Schwinger {
+		[schwinger1, schwinger2].filter { $0 != schwinger }.first!
+	}
 }
 
 extension Match: Hashable {
