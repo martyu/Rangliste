@@ -23,7 +23,8 @@ struct SchwingfestView: View {
 	
 	@State private var showSettings: Bool = false
 	@State private var showAddScorecard: Bool = false
-	@State private var showRangliste: Bool = false
+	@State private var showDetailedRangliste: Bool = false
+	@State private var showSimpleRangliste: Bool = false
 
 	var body: some View {
 		let scorecardsByAgeGroup = Dictionary(grouping: $schwingfest.scorecards) { $0.wrappedValue.ageGroup.ages.lowerBound }.sorted { $0.key < $1.key }
@@ -40,9 +41,15 @@ struct SchwingfestView: View {
 			}
 			
 			Button {
-				showRangliste = true
+				showDetailedRangliste = true
 			} label: {
-				Text("Show Rangliste")
+				Text("Show Detailed Rangliste")
+			}
+			
+			Button {
+				showSimpleRangliste = true
+			} label: {
+				Text("Show Simple Rangliste")
 			}
 		}
 		.navigationTitle("\(schwingfest.location) \(schwingfest.date.year)")
@@ -71,10 +78,16 @@ struct SchwingfestView: View {
 					.environmentObject(schwingfest)
 			}
 		}
-		.sheet(isPresented: $showRangliste) {
-			RanglisteView(schwingfest: schwingfest)
+		.sheet(isPresented: $showDetailedRangliste) {
+			RanglisteView(schwingfest: schwingfest, ranglisteType: .detailed)
 				.onDisappear {
-					showRangliste = false
+					showDetailedRangliste = false
+				}
+		}
+		.sheet(isPresented: $showSimpleRangliste) {
+			RanglisteView(schwingfest: schwingfest, ranglisteType: .simple)
+				.onDisappear {
+					showSimpleRangliste = false
 				}
 		}
 	}
