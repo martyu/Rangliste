@@ -8,10 +8,26 @@
 import Foundation
 
 public class Scorecard: Codable, Identifiable, ObservableObject {
-	var schwingfest: String
-	var schwinger: Schwinger
-	var matches: [Match]
-	var ageGroup: AgeGroup
+	var schwingfest: String {
+		didSet {
+			objectWillChange.send()
+		}
+	}
+	var schwinger: Schwinger {
+		didSet {
+			objectWillChange.send()
+		}
+	}
+	var matches: [Match] {
+		didSet {
+			objectWillChange.send()
+		}
+	}
+	var ageGroup: AgeGroup {
+		didSet {
+			objectWillChange.send()
+		}
+	}
 	
 	init(schwingfest: String, schwinger: Schwinger, matches: [Match], ageGroup: AgeGroup) {
 		self.schwingfest = schwingfest

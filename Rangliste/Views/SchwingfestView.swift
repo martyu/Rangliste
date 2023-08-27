@@ -40,16 +40,18 @@ struct SchwingfestView: View {
 				DataManager.shared.removeScorecards(atOffsets: indexSet, forSchwingfest: schwingfest)
 			}
 			
-			Button {
-				showDetailedRangliste = true
-			} label: {
-				Text("Show Detailed Rangliste")
-			}
-			
-			Button {
-				showSimpleRangliste = true
-			} label: {
-				Text("Show Simple Rangliste")
+			if schwingfest.scorecards.isEmpty == false {
+				Button {
+					showDetailedRangliste = true
+				} label: {
+					Text("Show Detailed Rangliste")
+				}
+				
+				Button {
+					showSimpleRangliste = true
+				} label: {
+					Text("Show Simple Rangliste")
+				}
 			}
 		}
 		.navigationTitle("\(schwingfest.location) \(schwingfest.date.year)")

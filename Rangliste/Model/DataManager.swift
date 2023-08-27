@@ -10,21 +10,48 @@ import Combine
 import UIKit
 
 class DataManager: SchwingfestRepo, ObservableObject {
+	static let shared = DataManager()
+
 	@Published var schwingfests: Set<Schwingfest> = Set()
+	
+	private var cancels = Set<AnyCancellable>()
 	
 	private init() {
 		loadSchwingfests()
-		NotificationCenter.default.addObserver(self, selector: #selector(saveSchwingfests), name: .deviceDidShakeNotification, object: nil)
+
+		$schwingfests
+			.sink { [weak self] schwingfests in
+				for schwingfest in schwingfests {
+					guard let self else { return }
+					schwingfest.objectWillChange.sink { _ in
+						self.saveSchwingfests(schwingfests)
+					}
+					.store(in: &self.cancels)
+					
+					for scorecard in schwingfest.scorecards {
+						scorecard.objectWillChange.sink { _ in
+							self.saveSchwingfests(schwingfests)
+						}
+						.store(in: &cancels)
+					}
+				}
+				self?.saveSchwingfests(schwingfests)
+			}
+			.store(in: &cancels)
+		
+		Timer.TimerPublisher(interval: 10, runLoop: .current, mode: .default).sink { [weak self] _ in
+			guard let self else { return }
+			self.saveSchwingfests(self.schwingfests)
+		}
+		.store(in: &cancels)
 	}
 	
 	deinit {
-		saveSchwingfests()
+		saveSchwingfests(schwingfests)
 	}
 }
 
 extension DataManager {
-	static let shared = DataManager()
-	
 	func saveSchwingfest(_ schwingfest: Schwingfest) {
 		schwingfests.insert(schwingfest)
 	}
@@ -67,8 +94,7 @@ extension DataManager {
 //		schwingfests = Set(MockData().schwingfests)
 	}
 
-	@objc
-	func saveSchwingfests() {
+	func saveSchwingfests(_ schwingfests: Set<Schwingfest>) {
 		do {
 			try JSONEncoder().encode(schwingfests).write(to: schwingfestsFile)
 		} catch {
