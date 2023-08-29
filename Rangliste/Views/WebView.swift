@@ -46,20 +46,6 @@ struct WebView: UIViewRepresentable {
 		
 		@MainActor
 		func createPDF(webView: WKWebView, title: String) async -> URL {
-//			let contentHeight = webView.scrollView.contentSize.height * 2
-//			let pageWidth = webView.bounds.width
-//			let pageHeight = webView.bounds.height
-//			let totalPages = ceil(contentHeight / pageHeight)
-//			
-//			let pdfRenderer = UIGraphicsPDFRenderer(bounds: CGRect(x: 0, y: 0, width: pageWidth, height: pageHeight))
-//			let pdfData = pdfRenderer.pdfData { context in
-//				for i in 0..<Int(totalPages) {
-//					context.beginPage()
-//					let yOffset = CGFloat(i) * pageHeight
-//					webView.scrollView.setContentOffset(CGPoint(x: 0, y: yOffset), animated: false)
-//					webView.layer.render(in: context.cgContext)
-//				}
-//			}
 			let pdfData = try! await webView.pdf()
 			return writeToFile(pdfData: pdfData, title: title)
 		}
@@ -74,35 +60,6 @@ struct WebView: UIViewRepresentable {
 			}
 			return fileURL
 		}
-		
-//		@MainActor
-//		private func saveAsPDF(webView: WKWebView, title: String?) async -> URL {
-//			let pdfConfiguration = WKPDFConfiguration()
-//
-//			/// Using `webView.scrollView.frame` allows us to capture the entire page, not just the visible portion
-//			pdfConfiguration.rect = CGRect(x: 0, y: 0, width: webView.scrollView.contentSize.width, height: webView.scrollView.contentSize.height)
-//
-//			webView.(configuration: pdfConfiguration) { result in
-//				switch result {
-//				case .success(let data):
-//					guard let downloadsDirectory = FileManager.default.urls(for: .downloadsDirectory, in: .userDomainMask).first else {
-//						return
-//					}
-//
-//					do {
-//						let savePath = downloadsDirectory.appendingPathComponent(title ?? "PDF").appendingPathExtension("pdf")
-//						try data.write(to: savePath)
-//
-//						print("Successfully created and saved PDF at \(savePath)")
-//					} catch let error {
-//						print("Could not save pdf due to \(error.localizedDescription)")
-//					}
-//
-//				case .failure(let failure):
-//					print(failure.localizedDescription)
-//				}
-//			}
-//		}
 	}
 }
 

@@ -23,7 +23,7 @@ struct RanglisteView: View {
 		let html: String
 		switch ranglisteType {
 		case .detailed:
-			html = generateDetailedHTML(for: schwingfest)
+			html = generateDetailedHTML()
 		case .simple:
 			html = generateSimpleHTML()
 		}
@@ -41,38 +41,43 @@ struct RanglisteView: View {
 		let sortedScorecards = scorecards.sorted(by: { $0.totalPoints > $1.totalPoints })
 		var rankings: [(ranking: String, scorecard: Scorecard)] = []
 		var currentRank = 1
-		var tieRank: Int? = nil
-		var tieSuffix = 1
-		
+		var tieStartIndex: Int? = nil // Store the index where the tie starts
+
 		for index in 0..<sortedScorecards.count {
 			if index > 0 && sortedScorecards[index].totalPoints == sortedScorecards[index - 1].totalPoints {
-				if tieRank == nil {
-					tieRank = currentRank
+				if tieStartIndex == nil {
+					tieStartIndex = index - 1
 				}
-				tieSuffix += 1
 			} else {
-				tieRank = nil
-				tieSuffix = 1
-				if index > 0 {
+				if let tieStart = tieStartIndex {
+					// Update the rankings from tieStart to index-1
+					for tieIndex in tieStart..<index {
+						let suffix = String(UnicodeScalar(Int(UInt8(96)) + tieIndex - tieStart + 1)!)
+						rankings[tieIndex].ranking = "\(currentRank)\(suffix)"
+					}
+					currentRank += 1
+					tieStartIndex = nil
+				} else if index > 0 {
 					currentRank += 1
 				}
 			}
 			
-			let ranking: String
-			if let tieRank = tieRank {
-				let suffix = String(UnicodeScalar(Int(UInt8(96)) + tieSuffix)!)
-				ranking = "\(tieRank)\(suffix)"
-			} else {
-				ranking = "\(currentRank)"
-			}
-			
+			let ranking = "\(currentRank)"
 			rankings.append((ranking, scorecard: sortedScorecards[index]))
 		}
-		
+
+		// Handle the case where the array ends with a tie
+		if let tieStart = tieStartIndex {
+			for tieIndex in tieStart..<rankings.count {
+				let suffix = String(UnicodeScalar(Int(UInt8(96)) + tieIndex - tieStart + 1)!)
+				rankings[tieIndex].ranking = "\(currentRank)\(suffix)"
+			}
+		}
+
 		return rankings
 	}
-	
-	func generateDetailedHTML(for schwingfest: Schwingfest) -> String {
+
+	func generateDetailedHTML() -> String {
 		let groupedByAgeGroup = Dictionary(grouping: schwingfest.scorecards, by: { $0.ageGroup })
 		let sortedAgeGroups = groupedByAgeGroup.keys.sorted(by: >)
 		
@@ -117,14 +122,14 @@ struct RanglisteView: View {
 		for ageGroup in sortedAgeGroups {
 			let scorecards = groupedByAgeGroup[ageGroup]!.sorted(by: { $0.totalPoints > $1.totalPoints })
 			let rankings = sortedRankings(for: scorecards)
-			html += "<h2>\(ageGroup.name)</h2>" // Age Group Heading in its own row
+			html += "<h2>\(ageGroup.name)</h2>"
 			for ranking in rankings {
 				let scorecard = ranking.scorecard
 				html += """
  <div class="schwinger-item">
   <div class="line top-line">
-   <div><span class="ranking">\((ranking.ranking))</span><span class="schwinger-name">\((scorecard.schwinger.fullName))</span></div>
-   <span>\(scorecard.totalPoints)</span>
+   <div><span class="ranking">\(ranking.ranking)</span><span class="schwinger-name">\(scorecard.schwinger.fullName)</span></div>
+   <span>\(scorecard.totalPoints.pointsFormatted)</span>
   </div>
   <div class="line-separator"></div>
  """
@@ -164,7 +169,7 @@ struct RanglisteView: View {
  </head>
  <body>
  
- <h1>Rangliste</h1>
+ <h1>\(schwingfest.displayTitle)</h1>
  """
 		
 		// Loop over the age groups
@@ -175,25 +180,22 @@ struct RanglisteView: View {
 			html += """
  <table>
  <tr>
- <th>Rank</th>
- <th>Name</th>
- <th>Results</th>
- <th>Total Points</th>
  </tr>
  """
 			
 			// Get the scorecards for this age group and sort them by points
 			let scorecardsForGroup = schwingfest.scorecards.filter { $0.ageGroup.ages == ageGroup.ages }
-			let sortedScorecards = scorecardsForGroup.sorted { $0.totalPoints > $1.totalPoints }
+			let sortedScorecards = sortedRankings(for: scorecardsForGroup)
 			
 			// Loop over the scorecards to create the table rows
-			for (index, scoreCard) in sortedScorecards.enumerated() {
+			for (index, scoreCard) in sortedScorecards {
 				html += """
  <tr>
- <td>\(index + 1)</td>
- <td>\(scoreCard.schwinger.firstName) \(scoreCard.schwinger.lastName)</td>
+ <td>\(index)</td>
+ <td>\(scoreCard.schwinger.fullName)</td>
+ <td>\(scoreCard.schwingerClub)</td>
  <td>\(scoreCard.winLossTieString)</td>
- <td>\(scoreCard.totalPoints)</td>
+ <td>\(scoreCard.totalPoints.pointsFormatted)</td>
  </tr>
  """
 			}
@@ -213,6 +215,9 @@ struct RanglisteView: View {
 struct RanglisteView_Previews: PreviewProvider {
 	static var previews: some View {
 		RanglisteView(schwingfest: MockData().schwingfest, ranglisteType: .detailed)
+			.previewDisplayName("Detailed")
+		RanglisteView(schwingfest: MockData().schwingfest, ranglisteType: .simple)
+			.previewDisplayName("Simple")
 	}
 }
 
