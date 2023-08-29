@@ -7,6 +7,10 @@
 
 import SwiftUI
 
+func allSchwingersClubs(for schwingfests: [Schwingfest]) -> [String] {
+	Array(Set(schwingfests.flatMap(\.scorecards).map(\.schwingerClub)))
+}
+
 struct ScorecardView: View {
 	@EnvironmentObject var schwingfest: Schwingfest
 	
@@ -24,6 +28,9 @@ struct ScorecardView: View {
 					ForEach(schwingfest.ageGroups, id: \.name) { ageGroup in
 						Text(ageGroup.name).tag(ageGroup)
 					}
+				}
+				ClubPicker(allClubs: allSchwingersClubs(for: Array(DataManager.shared.schwingfests)), selectedClub: scorecard.schwingerClub) { newClub in
+					scorecard.schwingerClub = newClub
 				}
 			}
 			let resultsForSchwinger = scorecard.matches.map { $0.result(for: scorecard.schwinger) }

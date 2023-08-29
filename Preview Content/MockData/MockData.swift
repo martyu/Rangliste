@@ -68,6 +68,13 @@ class MockData {
 		"Weissenstein-Schwinget",
 	]
 
+	let schwingerClubs = [
+		"Tacoma, WA",
+		"Frances, WA",
+		"Ripon, CA",
+		"Truckee, CA",
+		"Muotathal, CH"
+	]
 
 	func generateScoreCards(for schwingfest: Schwingfest) -> [Scorecard] {
 		schwingers.map { schwinger in
@@ -87,7 +94,8 @@ class MockData {
 				schwingfest: schwingfest.id,
 				schwinger: schwinger,
 				matches: matches,
-				ageGroup: ageGroups.randomElement()!
+				ageGroup: ageGroups.randomElement()!,
+				schwingerClub: schwingerClubs.randomElement()!
 			)
 		}
 	}

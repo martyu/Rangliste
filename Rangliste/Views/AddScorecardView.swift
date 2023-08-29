@@ -15,6 +15,7 @@ struct AddScorecardView: View {
 	@State var lastName: String = ""
 	@State var age: String = ""
 	@State var ageGroup: AgeGroup
+	@State var schwingerClub: String = .customClub
 	
 	@Binding var shouldShow: Bool
 			
@@ -23,17 +24,30 @@ struct AddScorecardView: View {
 			TextField("First Name", text: $firstName)
 			TextField("Last Name", text: $lastName)
 			TextField("Age", text: $age)
-			Picker("Age Group", selection: $ageGroup, content: {
+			Picker("Age Group", selection: $ageGroup) {
 				ForEach(schwingfest.ageGroups, id: \.name) { ageGroup in
 					Text(ageGroup.name).tag(ageGroup)
 				}
-			})
+			}
+			ClubPicker(allClubs: allSchwingersClubs(for: Array(DataManager.shared.schwingfests))) { newClub in
+				schwingerClub = newClub
+			}
 		}
 		.toolbar {
 			ToolbarItem(placement: .navigationBarTrailing) {
 				Button("Done") {
-					let schwinger = Schwinger(firstName: firstName, lastName: lastName, age: Int(age)!)
-					let scorecard = Scorecard(schwingfest: schwingfest.id, schwinger: schwinger, matches: [], ageGroup: ageGroup)
+					let schwinger = Schwinger(
+						firstName: firstName,
+						lastName: lastName,
+						age: Int(age)!
+					)
+					let scorecard = Scorecard(
+						schwingfest: schwingfest.id,
+						schwinger: schwinger,
+						matches: [],
+						ageGroup: ageGroup,
+						schwingerClub: schwingerClub
+					)
 					schwingfest.scorecards.append(scorecard)
 					shouldShow = false
 				}
@@ -43,9 +57,12 @@ struct AddScorecardView: View {
 		.navigationTitle("Add Schwinger")
     }
 }
-//
-//struct AddScorecardView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        AddScorecardView()
-//    }
-//}
+
+struct AddScorecardView_Previews: PreviewProvider {
+    static var previews: some View {
+		AddScorecardView(
+			ageGroup: AgeGroup(ages: 5...8), shouldShow: .constant(true)
+		)
+		.environmentObject(MockData().schwingfests.first!)
+    }
+}

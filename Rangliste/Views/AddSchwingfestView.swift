@@ -90,6 +90,7 @@ struct AddSchwingfestView: View {
 					}
 				}
 			}
+			.navigationTitle("Add Schwingfest")
 		}
 	}
 }

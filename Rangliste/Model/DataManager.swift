@@ -89,12 +89,18 @@ extension DataManager {
 	}
 
 	private func loadSchwingfests() {
+		print("loading")
 		let schwingfestsFile = schwingfestsFile
-		schwingfests = (try? JSONDecoder().decode(Set<Schwingfest>.self, from: Data(contentsOf: schwingfestsFile))) ?? Set<Schwingfest>()
-//		schwingfests = Set(MockData().schwingfests)
+		do {
+			schwingfests = try JSONDecoder().decode(Set<Schwingfest>.self, from: Data(contentsOf: schwingfestsFile))
+			//		schwingfests = Set(MockData().schwingfests)
+		} catch {
+			print("ERROR::: \(error)")
+		}
 	}
 
 	func saveSchwingfests(_ schwingfests: Set<Schwingfest>) {
+		print("saving")
 		do {
 			try JSONEncoder().encode(schwingfests).write(to: schwingfestsFile)
 		} catch {

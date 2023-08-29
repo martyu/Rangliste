@@ -17,6 +17,7 @@
 		761FDF7C2A77191300EB6D05 /* AgeGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 761FDF752A77191300EB6D05 /* AgeGroup.swift */; };
 		761FDF7D2A77191300EB6D05 /* Schwinger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 761FDF762A77191300EB6D05 /* Schwinger.swift */; };
 		76563C222A7F6263001E26CB /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76563C212A7F6263001E26CB /* DataManager.swift */; };
+		7664E35F2A9E648E0034085F /* ClubPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7664E35E2A9E648E0034085F /* ClubPicker.swift */; };
 		766BCB062A6DFC4E002700AF /* Schwinger+FullName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 766BCB052A6DFC4E002700AF /* Schwinger+FullName.swift */; };
 		766BCB092A6E0277002700AF /* Date+Year.swift in Sources */ = {isa = PBXBuildFile; fileRef = 766BCB082A6E0277002700AF /* Date+Year.swift */; };
 		766BCB0C2A6E0856002700AF /* ConfirmDeleteViewModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 766BCB0B2A6E0856002700AF /* ConfirmDeleteViewModifier.swift */; };
@@ -82,6 +83,7 @@
 		761FDF752A77191300EB6D05 /* AgeGroup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AgeGroup.swift; sourceTree = "<group>"; };
 		761FDF762A77191300EB6D05 /* Schwinger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Schwinger.swift; sourceTree = "<group>"; };
 		76563C212A7F6263001E26CB /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
+		7664E35E2A9E648E0034085F /* ClubPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClubPicker.swift; sourceTree = "<group>"; };
 		766BCB052A6DFC4E002700AF /* Schwinger+FullName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Schwinger+FullName.swift"; sourceTree = "<group>"; };
 		766BCB082A6E0277002700AF /* Date+Year.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Year.swift"; sourceTree = "<group>"; };
 		766BCB0B2A6E0856002700AF /* ConfirmDeleteViewModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmDeleteViewModifier.swift; sourceTree = "<group>"; };
@@ -268,6 +270,7 @@
 				76CCB89D2A941BB900AE10F8 /* AddMatchView.swift */,
 				76BEA8222A6BB99700987CBD /* AddSchwingfestView.swift */,
 				76BF60762A8CAF20003D2EE2 /* AddScorecardView.swift */,
+				7664E35E2A9E648E0034085F /* ClubPicker.swift */,
 				761FDF672A75F3BB00EB6D05 /* MatchView.swift */,
 				76E026D32A43DCF60018A955 /* RanglisteView.swift */,
 				76CCB89F2A941BEC00AE10F8 /* ResultPicker.swift */,
@@ -469,6 +472,7 @@
 				76BEA8272A6BE28A00987CBD /* SchwingfestView.swift in Sources */,
 				766BCB092A6E0277002700AF /* Date+Year.swift in Sources */,
 				76E026D62A43E2960018A955 /* WebView.swift in Sources */,
+				7664E35F2A9E648E0034085F /* ClubPicker.swift in Sources */,
 				766BCB062A6DFC4E002700AF /* Schwinger+FullName.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -33,6 +33,11 @@ struct SchwingfestList: View {
 		.sheet(isPresented: $isShowingSheet) {
 			AddSchwingfestView(shouldShow: $isShowingSheet)
 		}
+		.task {
+			if schwingfestRepo.schwingfests.isEmpty {
+				isShowingSheet = true
+			}
+		}
 	}
 	
 	@ViewBuilder

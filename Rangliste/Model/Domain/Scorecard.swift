@@ -28,15 +28,39 @@ public class Scorecard: Codable, Identifiable, ObservableObject {
 			objectWillChange.send()
 		}
 	}
+	var schwingerClub: String {
+		didSet {
+			objectWillChange.send()
+		}
+	}
 	
-	init(schwingfest: String, schwinger: Schwinger, matches: [Match], ageGroup: AgeGroup) {
+	init(schwingfest: String, schwinger: Schwinger, matches: [Match], ageGroup: AgeGroup, schwingerClub: String) {
 		self.schwingfest = schwingfest
 		self.schwinger = schwinger
 		self.matches = matches
 		self.ageGroup = ageGroup
+		self.schwingerClub = schwingerClub
 	}
 	
 	public var id: String { "\(schwingfest)-\(schwinger.id)" }
+	
+	public required init(from decoder: Decoder) throws {
+		let container = try decoder.container(keyedBy: CodingKeys.self)
+		
+		schwingfest = try container.decode(String.self, forKey: .schwingfest)
+		schwinger = try container.decode(Schwinger.self, forKey: .schwinger)
+		matches = try container.decode([Match].self, forKey: .matches)
+		ageGroup = try container.decode(AgeGroup.self, forKey: .ageGroup)
+		schwingerClub = try container.decodeIfPresent(String.self, forKey: .schwingerClub) ?? .customClub
+	}
+
+	enum CodingKeys: String, CodingKey {
+		case schwingfest
+		case schwinger
+		case matches
+		case ageGroup
+		case schwingerClub
+	}
 }
 
 extension Scorecard {
@@ -118,24 +142,21 @@ extension Scorecard {
 	var winLossTieString: String {
 		var resultString = ""
 		for match in matches {
+			let outcome: Outcome
 			if match.schwinger1.id == schwinger.id {
-				switch match.resultSchwinger1.outcome {
-				case .win:
-					resultString += "+"
-				case .loss:
-					resultString += "o"
-				case .tie:
-					resultString += "-"
-				}
+				outcome = match.resultSchwinger1.outcome
 			} else if match.schwinger2.id == schwinger.id {
-				switch match.resultSchwinger2.outcome {
-				case .win:
-					resultString += "+"
-				case .loss:
-					resultString += "o"
-				case .tie:
-					resultString += "-"
-				}
+				outcome = match.resultSchwinger2.outcome
+			} else {
+				fatalError()
+			}
+			switch outcome {
+			case .win:
+				resultString += "+"
+			case .loss:
+				resultString += "o"
+			case .tie:
+				resultString += "-"
 			}
 		}
 		return resultString
