@@ -37,44 +37,89 @@ struct RanglisteView: View {
 		}
 	}
 	
-	func sortedRankings(for scorecards: [Scorecard]) -> [(ranking: String, scorecard: Scorecard)] {
+	func sortedRankings(for scorecards: [Scorecard]) -> [[Scorecard]] {
 		let sortedScorecards = scorecards.sorted(by: { $0.totalPoints > $1.totalPoints })
-		var rankings: [(ranking: String, scorecard: Scorecard)] = []
-		var currentRank = 1
-		var tieStartIndex: Int? = nil // Store the index where the tie starts
+		var rankings: [[Scorecard]] = []
+		var currentRank: [Scorecard] = []
 
 		for index in 0..<sortedScorecards.count {
-			if index > 0 && sortedScorecards[index].totalPoints == sortedScorecards[index - 1].totalPoints {
-				if tieStartIndex == nil {
-					tieStartIndex = index - 1
-				}
+			if index == 0 || sortedScorecards[index].totalPoints == sortedScorecards[index - 1].totalPoints {
+				// Continue the tie
+				currentRank.append(sortedScorecards[index])
 			} else {
-				if let tieStart = tieStartIndex {
-					// Update the rankings from tieStart to index-1
-					for tieIndex in tieStart..<index {
-						let suffix = String(UnicodeScalar(Int(UInt8(96)) + tieIndex - tieStart + 1)!)
-						rankings[tieIndex].ranking = "\(currentRank)\(suffix)"
-					}
-					currentRank += 1
-					tieStartIndex = nil
-				} else if index > 0 {
-					currentRank += 1
-				}
+				// Sort the ties using the tiebreaker closure
+				currentRank.sort(by: tiebreaker)
+				
+				// Add the current rank array to rankings and start a new one
+				rankings.append(currentRank)
+				currentRank = [sortedScorecards[index]]
 			}
-			
-			let ranking = "\(currentRank)"
-			rankings.append((ranking, scorecard: sortedScorecards[index]))
 		}
-
-		// Handle the case where the array ends with a tie
-		if let tieStart = tieStartIndex {
-			for tieIndex in tieStart..<rankings.count {
-				let suffix = String(UnicodeScalar(Int(UInt8(96)) + tieIndex - tieStart + 1)!)
-				rankings[tieIndex].ranking = "\(currentRank)\(suffix)"
-			}
+		
+		// Handle the case where the array ends with a tie or a unique rank
+		if !currentRank.isEmpty {
+			// Sort the ties using the tiebreaker closure before adding
+			currentRank.sort(by: tiebreaker)
+			rankings.append(currentRank)
 		}
 
 		return rankings
+	}
+
+	func rankingsToStringMapped(from nestedRankings: [[Scorecard]]) -> [(ranking: String, scorecard: Scorecard)] {
+		var result: [(ranking: String, scorecard: Scorecard)] = []
+		var currentRank = 1
+
+		for tiedRankings in nestedRankings {
+			let count = tiedRankings.count
+
+			if count == 1 {
+				// No tie
+				let ranking = "\(currentRank)"
+				result.append((ranking, tiedRankings[0]))
+			} else {
+				// There is a tie
+				for (index, scorecard) in tiedRankings.enumerated() {
+					let suffix = String(UnicodeScalar(Int(UInt8(96)) + index + 1)!) // 'a', 'b', 'c', etc.
+					let ranking = "\(currentRank)\(suffix)"
+					result.append((ranking, scorecard))
+				}
+			}
+
+			currentRank += 1
+		}
+
+		return result
+	}
+	
+	// Assuming that Scorecard has methods like numberOfWins(), numberOf10s(), numberOfTies(), and countOfWinsAgainst(_:)
+	func tiebreaker(_ a: Scorecard, _ b: Scorecard) -> Bool {
+		// Count how many times 'a' has beaten 'b' and vice versa
+		let winsOfAOverB = a.numberOfWins(against: b)
+		let winsOfBOverA = b.numberOfWins(against: a)
+
+		if winsOfAOverB != winsOfBOverA {
+			return winsOfAOverB > winsOfBOverA
+		}
+
+		// Check the total number of wins
+		let winsA = a.wins.count
+		let winsB = b.wins.count
+		if winsA != winsB {
+			return winsA > winsB
+		}
+
+		// Check the number of 10s
+		let tensA = a.tens.count
+		let tensB = b.tens.count
+		if tensA != tensB {
+			return tensA > tensB
+		}
+
+		// Check the number of ties
+		let tiesA = a.ties.count
+		let tiesB = b.ties.count
+		return tiesA > tiesB
 	}
 
 	func generateDetailedHTML() -> String {
@@ -121,9 +166,10 @@ struct RanglisteView: View {
 		
 		for ageGroup in sortedAgeGroups {
 			let scorecards = groupedByAgeGroup[ageGroup]!.sorted(by: { $0.totalPoints > $1.totalPoints })
-			let rankings = sortedRankings(for: scorecards)
+			let stringMappedRankings = rankingsToStringMapped(from: sortedRankings(for: scorecards))
+
 			html += "<h2>\(ageGroup.name)</h2>"
-			for ranking in rankings {
+			for ranking in stringMappedRankings {
 				let scorecard = ranking.scorecard
 				html += """
  <div class="schwinger-item">
@@ -186,12 +232,13 @@ struct RanglisteView: View {
 			// Get the scorecards for this age group and sort them by points
 			let scorecardsForGroup = schwingfest.scorecards.filter { $0.ageGroup.ages == ageGroup.ages }
 			let sortedScorecards = sortedRankings(for: scorecardsForGroup)
+			let rankings = rankingsToStringMapped(from: sortedScorecards)
 			
 			// Loop over the scorecards to create the table rows
-			for (index, scoreCard) in sortedScorecards {
+			for (ranking, scoreCard) in rankings {
 				html += """
  <tr>
- <td>\(index)</td>
+ <td>\(ranking)</td>
  <td>\(scoreCard.schwinger.fullName)</td>
  <td>\(scoreCard.schwingerClub)</td>
  <td>\(scoreCard.winLossTieString)</td>

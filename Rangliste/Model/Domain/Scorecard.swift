@@ -80,10 +80,32 @@ extension Scorecard {
 	func matchResult(for match: Match) -> MatchResult? {
 		match.result(for: schwinger)
 	}
+	
+	func numberOfWins(against opponent: Scorecard) -> Int {
+		matches.filter { match in
+			match.result(for: schwinger).outcome == .win &&
+			match.opponent(for: schwinger) == opponent.schwinger
+		}.count
+	}
 }
 
 extension Scorecard {
-	var wins: Int {
+	var tens: [Match] {
+		matches.filter { match in
+			if match.schwinger1.id == schwinger.id {
+				if match.resultSchwinger1.points == 10 {
+					return true
+				}
+			} else if match.schwinger2.id == schwinger.id {
+				if match.resultSchwinger2.points == 10 {
+					return true
+				}
+			}
+			return false
+		}
+	}
+	
+	var wins: [Match] {
 		matches.filter { match in
 			if match.schwinger1.id == schwinger.id {
 				if case .win = match.resultSchwinger1.outcome {
@@ -95,10 +117,10 @@ extension Scorecard {
 				}
 			}
 			return false
-		}.count
+		}
 	}
 	
-	var losses: Int {
+	var losses: [Match] {
 		matches.filter { match in
 			if match.schwinger1.id == schwinger.id {
 				if case .loss = match.resultSchwinger1.outcome {
@@ -110,10 +132,10 @@ extension Scorecard {
 				}
 			}
 			return false
-		}.count
+		}
 	}
 	
-	var ties: Int {
+	var ties: [Match] {
 		matches.filter { match in
 			if match.schwinger1.id == schwinger.id {
 				if case .tie = match.resultSchwinger1.outcome {
@@ -125,7 +147,7 @@ extension Scorecard {
 				}
 			}
 			return false
-		}.count
+		}
 	}
 	
 	var totalPoints: Double {
