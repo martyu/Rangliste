@@ -39,7 +39,7 @@ struct WebView: UIViewRepresentable {
 		func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
 			Task {
 				try! await Task.sleep(nanoseconds: 1_000_000_000)
-				let pdf = await createPDF(webView: webView, title: parent.title)
+				let pdf = createHTML()
 				parent.sharePDFUpdated(pdf)
 			}
 		}
@@ -47,14 +47,18 @@ struct WebView: UIViewRepresentable {
 		@MainActor
 		func createPDF(webView: WKWebView, title: String) async -> URL {
 			let pdfData = try! await webView.pdf()
-			return writeToFile(pdfData: pdfData, title: title)
+			return writeToFile(data: pdfData, title: title, ext: "pdf")
 		}
 		
-		private func writeToFile(pdfData: Data, title: String) -> URL {
+		func createHTML() -> URL {
+			writeToFile(data: parent.htmlContent.data(using: .utf8)!, title: parent.title, ext: "html")
+		}
+		
+		private func writeToFile(data: Data, title: String, ext: String) -> URL {
 			let temporaryDirectoryURL = FileManager.default.temporaryDirectory
-			let fileURL = temporaryDirectoryURL.appendingPathComponent("\(title).pdf")
+			let fileURL = temporaryDirectoryURL.appendingPathComponent("\(title).\(ext)")
 			do {
-				try pdfData.write(to: fileURL)
+				try data.write(to: fileURL)
 			} catch {
 				print("Failed to write PDF data to file: \(error)")
 			}
